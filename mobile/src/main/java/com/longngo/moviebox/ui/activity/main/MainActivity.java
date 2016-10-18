@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,11 +19,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -42,7 +45,7 @@ import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity<MainPresentationModel,MainView,MainPresenter> implements MainView{
+public class MainActivity extends BaseActivity<MainPresentationModel, MainView, MainPresenter> implements MainView {
     private static final String TAG = "MainActivity";
     private static final int POSITION_CONTENT_VIEW = 0;
     private static final int POSITION_PROGRESS_VIEW = 1;
@@ -56,6 +59,9 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
     @BindView(R.id.viewAnimator)
     ViewAnimator resultAnimator;
 
+    @BindView(R.id.appbar)
+    AppBarLayout appBarLayout;
+
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -63,12 +69,14 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
 
 
     BaseAdapter baseAdapter;
+
     public void androidM() {
         Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:" + getPackageName()));
         startActivityForResult(intent, 123);
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +102,8 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
 
 
     }
-    void setupUI(){
+
+    void setupUI() {
         setupRV();
         setupToolBar();
         setupSwipeRefreshLayout();
@@ -111,6 +120,7 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
                     }
                 });
     }
+
     public void selectDrawerItem(MenuItem menuItem) {
 //        // Create a new fragment and specify the fragment to show based on nav item clicked
 //        Fragment fragment = null;
@@ -146,6 +156,7 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
 //        // Close the navigation drawer
 //        mDrawer.closeDrawers();
     }
+
     private void setupStatusBar() {
         Window window = getWindow();
 
@@ -178,13 +189,14 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
         });
     }
 
-    void setupToolBar(){
+    void setupToolBar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Movie Box");
     }
-    void setupRV(){
+
+    void setupRV() {
         final StaggeredGridLayoutManager staggeredGridLayoutManagerVertical =
                 new StaggeredGridLayoutManager(
                         columnNum, //The number of Columns in the grid
@@ -222,6 +234,7 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
         });
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -242,30 +255,30 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
 
     @Override
     public void showProcess() {
-        if(resultAnimator.getDisplayedChild()== POSITION_PROGRESS_VIEW) return;
+        if (resultAnimator.getDisplayedChild() == POSITION_PROGRESS_VIEW) return;
         resultAnimator.setDisplayedChild(POSITION_PROGRESS_VIEW);
         swipeRefresh.setRefreshing(false);
     }
 
     @Override
     public void showContent() {
-        if(resultAnimator.getDisplayedChild()== POSITION_CONTENT_VIEW) return;
+        if (resultAnimator.getDisplayedChild() == POSITION_CONTENT_VIEW) return;
         resultAnimator.setDisplayedChild(POSITION_CONTENT_VIEW);
     }
 
     @Override
     public void updateView() {
-        if(baseAdapter == null){
+        if (baseAdapter == null) {
             baseAdapter = new BaseAdapter(this, presenter.getPresentationModel());
             listRV.setAdapter(baseAdapter);
-        }else{
+        } else {
             baseAdapter.notifyDataSetChanged();
         }
 
         listRV.setLayoutFrozen(false);
         swipeRefresh.setRefreshing(false);
         showContent();
-        AchievementUnlocked test=
+        AchievementUnlocked test =
                 new AchievementUnlocked(this)
                         .setTitle("Lilac and Gooseberries")
                         .setSubtitleColor(0x80ffffff)
@@ -276,11 +289,34 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
         test.show();
     }
 
+    SearchView searchView;
+    View view;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) menuItem.getActionView();
+        view = findViewById(R.id.softPanel);
+        if (view == null) {
+            Toast.makeText(this, "view == null", Toast.LENGTH_SHORT).show();
+        }
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchView.onActionViewCollapsed();
+                view.setVisibility(View.GONE);
+                appBarLayout.setBackgroundColor(getResources().getColor(R.color.tran));
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return true;
     }
 
@@ -293,16 +329,24 @@ public class MainActivity extends BaseActivity<MainPresentationModel,MainView,Ma
 
         //noinspection SimplifiableIfStatement
 
-        switch (id){
+        switch (id) {
             case android.R.id.home:
                 mDrawer.openDrawer(GravityCompat.START);
                 return true;
             case R.id.action_search:
-                Toast.makeText(this, "R.id.action_search", Toast.LENGTH_SHORT).show();
+                searchView.requestFocus();
+                appBarLayout.setBackgroundColor(getResources().getColor(R.color.gray));
                 return true;
-            case R.id.action_favorite :
-                Toast.makeText(this, "R.id.action_favorite", Toast.LENGTH_SHORT).show();
+            case R.id.action_sort:
+                if(view.getVisibility()==View.VISIBLE){
+                    view.setVisibility(View.GONE);
+                    appBarLayout.setBackgroundColor(getResources().getColor(R.color.tran));
+                }else{
+                    view.setVisibility(View.VISIBLE);
+                    appBarLayout.setBackgroundColor(getResources().getColor(R.color.gray));
+                }
                 return true;
+
         }
 
         return super.onOptionsItemSelected(item);
