@@ -14,6 +14,18 @@
             >
 
         </activity>
+        <activity android:name="com.longngo.moviebox.ui.activity.main.NYTimesActivity"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
+
+        </activity>
 
         <activity android:name="com.longngo.moviebox.ui.activity.detail.DetailActivity"
             android:theme="@style/AppTheme.Translucent">
@@ -33,12 +45,13 @@
         </activity>
         <activity-alias
             android:name="laucher"
-            android:targetActivity="com.longngo.moviebox.ui.activity.main.MainActivity">
+            android:targetActivity="com.longngo.moviebox.ui.activity.main.NYTimesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity-alias>
     </application>
 

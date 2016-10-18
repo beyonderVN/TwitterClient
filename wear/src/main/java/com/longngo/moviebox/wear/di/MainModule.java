@@ -6,8 +6,8 @@ import android.content.Context;
 import com.longngo.moviebox.wear.WearApplication;
 import com.ngohoang.along.appcore.common.schedulers.BaseSchedulerProvider;
 import com.ngohoang.along.appcore.common.schedulers.SchedulerProvider;
-import com.ngohoang.along.appcore.data.backend.MovieBoxServiceApi;
-import com.ngohoang.along.appcore.data.backend.MovieBoxServiceFactory;
+import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxServiceApi;
+import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxServiceFactory;
 
 import javax.inject.Singleton;
 
@@ -49,7 +49,7 @@ public class MainModule {
 //    }
 //    @Provides
 //    @Singleton
-//    MoviesRemoteDataSource provideMoviesRemoteDataSource(MoviesRemoteDataSource competitionsDataSource) {
+//    NYTimesRemoteDataSource provideMoviesRemoteDataSource(NYTimesRemoteDataSource competitionsDataSource) {
 //        return competitionsDataSource;
 //    }
 ////    @Provides
@@ -59,13 +59,13 @@ public class MainModule {
 //    }
 ////    @Provides
 ////    @Singleton
-////    MoviesRepository provideMoviesRepository(MoviesRepository moviesRepository) {
+////    NYTimesRepository provideMoviesRepository(NYTimesRepository moviesRepository) {
 ////        return moviesRepository;
 ////    }
 //
 //    @Provides
 //    @Singleton
-//    MovieBoxService provideMovieBoxService(MovieBoxService movieBoxService) {
+//    NYTimesService provideMovieBoxService(NYTimesService movieBoxService) {
 //        return movieBoxService;
 //    }
 

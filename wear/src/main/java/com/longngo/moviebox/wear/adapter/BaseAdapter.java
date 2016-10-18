@@ -2,14 +2,13 @@ package com.longngo.moviebox.wear.adapter;
 
 import android.content.Context;
 import android.support.wearable.view.GridPagerAdapter;
-import android.support.wearable.view.GridViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.longngo.moviebox.wear.adapter.holder.BaseViewHolder;
 import com.ngohoang.along.appcore.presentation.BasePresentationModel;
-import com.ngohoang.along.appcore.presentation.viewmodel.BaseVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.BaseVM;
 
 import java.util.List;
 

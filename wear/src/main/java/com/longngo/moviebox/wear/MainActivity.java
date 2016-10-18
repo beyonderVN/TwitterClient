@@ -1,35 +1,16 @@
 package com.longngo.moviebox.wear;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
-import android.support.wearable.activity.WearableActivity;
-import android.support.wearable.view.BoxInsetLayout;
 import android.support.wearable.view.DotsPageIndicator;
-import android.support.wearable.view.GridPagerAdapter;
 import android.support.wearable.view.GridViewPager;
 import android.support.wearable.view.WearableListView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.longngo.moviebox.wear.adapter.BaseAdapter;
-import com.ngohoang.along.appcore.common.DynamicHeightImageView;
-import com.ngohoang.along.appcore.common.recyclerviewhelper.PlaceHolderDrawableHelper;
-import com.ngohoang.along.appcore.presentation.presentor.main.MainPresentationModel;
-import com.ngohoang.along.appcore.presentation.presentor.main.MainPresenter;
-import com.ngohoang.along.appcore.presentation.presentor.main.MainView;
-import com.ngohoang.along.appcore.presentation.viewmodel.BaseVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieVM;
-import com.squareup.picasso.Picasso;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.main.MainPresentationModel;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.main.MainPresenter;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.main.MainView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

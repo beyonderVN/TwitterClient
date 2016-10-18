@@ -23,11 +23,11 @@ import com.longngo.moviebox.ui.activity.base.BaseActivity;
 import com.ngohoang.along.appcore.common.DynamicHeightImageView;
 import com.ngohoang.along.appcore.common.ElasticDragDismissFrameLayout;
 import com.ngohoang.along.appcore.common.recyclerviewhelper.PlaceHolderDrawableHelper;
-import com.ngohoang.along.appcore.presentation.presentor.detail.DetailPresentationModel;
-import com.ngohoang.along.appcore.presentation.presentor.detail.DetailPresenter;
-import com.ngohoang.along.appcore.presentation.presentor.detail.DetailView;
-import com.ngohoang.along.appcore.presentation.viewmodel.BaseVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieVM;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.detail.DetailPresentationModel;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.detail.DetailPresenter;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.detail.DetailView;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.BaseVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieVM;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

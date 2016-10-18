@@ -11,12 +11,10 @@ import com.longngo.moviebox.ui.adapter.vmfactory.HolderFactory;
 import com.longngo.moviebox.ui.adapter.vmfactory.HolderFactoryImpl;
 import com.ngohoang.along.appcore.presentation.BasePresentationModel;
 
-import com.ngohoang.along.appcore.presentation.viewmodel.BaseVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.BaseVM;
 
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Created by Long on 10/5/2016.

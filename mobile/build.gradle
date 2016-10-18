@@ -13,12 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField("String", "MOVIE_API_URL",
-                "\"${movieDbApiUrl}\"")
-        buildConfigField("String", "MOVIE_API_KEY",
-                "\"${movieDbApiKey}\"")
-        buildConfigField("String", "YOUTUBE_API_KEY",
-                "\"${movieDbApiKey}\"")
+
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 

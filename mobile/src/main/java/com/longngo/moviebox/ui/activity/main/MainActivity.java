@@ -34,9 +34,9 @@ import com.longngo.moviebox.ui.activity.base.BaseActivity;
 import com.longngo.moviebox.ui.adapter.BaseAdapter;
 import com.ngohoang.along.appcore.common.AchievementUnlocked;
 import com.ngohoang.along.appcore.common.recyclerviewhelper.InfiniteScrollListener;
-import com.ngohoang.along.appcore.presentation.presentor.main.MainPresentationModel;
-import com.ngohoang.along.appcore.presentation.presentor.main.MainPresenter;
-import com.ngohoang.along.appcore.presentation.presentor.main.MainView;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.main.MainPresentationModel;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.main.MainPresenter;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.main.MainView;
 
 import butterknife.BindInt;
 import butterknife.BindView;

@@ -1,17 +1,12 @@
 package com.longngo.moviebox.wear.adapter.holder;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
-
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 import com.longngo.moviebox.wear.R;
-import com.ngohoang.along.appcore.common.DynamicHeightImageView;
 import com.ngohoang.along.appcore.common.recyclerviewhelper.PlaceHolderDrawableHelper;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieVM;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

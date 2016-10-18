@@ -18,12 +18,12 @@ import com.longngo.moviebox.ui.adapter.BaseAdapter;
 
 import com.ngohoang.along.appcore.common.ElasticDragDismissFrameLayout;
 import com.ngohoang.along.appcore.common.recyclerviewhelper.InfiniteScrollListener;
-import com.ngohoang.along.appcore.presentation.presentor.detail.DetailPresentationModel;
-import com.ngohoang.along.appcore.presentation.presentor.detail.DetailPresenter;
-import com.ngohoang.along.appcore.presentation.presentor.detail.DetailView;
-import com.ngohoang.along.appcore.presentation.viewmodel.BaseVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieDetailVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieVM;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.detail.DetailPresentationModel;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.detail.DetailPresenter;
+import com.ngohoang.along.appcore.presentation.moviebox.presentor.detail.DetailView;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.BaseVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieDetailVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieVM;
 
 import butterknife.BindInt;
 import butterknife.BindView;

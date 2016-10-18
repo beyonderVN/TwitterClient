@@ -1,19 +1,12 @@
 package com.longngo.moviebox.wear.adapter.holder;
 
-import android.animation.ValueAnimator;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
-import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.longngo.moviebox.wear.R;
-import com.ngohoang.along.appcore.common.DynamicHeightImageView;
 import com.ngohoang.along.appcore.common.recyclerviewhelper.PlaceHolderDrawableHelper;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.TrailerMovieVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.TrailerMovieVM;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

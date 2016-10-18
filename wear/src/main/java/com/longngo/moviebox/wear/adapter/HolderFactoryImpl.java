@@ -10,11 +10,11 @@ import com.longngo.moviebox.wear.adapter.holder.MovieDetailHolder;
 import com.longngo.moviebox.wear.adapter.holder.MovieTrailerItemHolder;
 import com.longngo.moviebox.wear.adapter.holder.MovieViewHolder;
 import com.longngo.moviebox.wear.adapter.holder.NoMoreItemHolder;
-import com.ngohoang.along.appcore.presentation.viewmodel.LoadingMoreVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieDetailVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.NoMoreItemVM;
-import com.ngohoang.along.appcore.presentation.viewmodel.TrailerMovieVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.LoadingMoreVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieDetailVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.NoMoreItemVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.TrailerMovieVM;
 
 /**
  * Created by Long on 10/5/2016.

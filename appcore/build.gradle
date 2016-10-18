@@ -19,6 +19,11 @@ android {
         buildConfigField("String", "YOUTUBE_API_KEY",
                 "\"${movieDbApiKey}\"")
 
+        buildConfigField("String", "NYTIMES_API_KEY",
+                "\"${nYTimesAPIKey}\"")
+
+        buildConfigField("String", "NYTIMES_API_URL",
+                "\"${nYTimesApiUrl}\"")
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }

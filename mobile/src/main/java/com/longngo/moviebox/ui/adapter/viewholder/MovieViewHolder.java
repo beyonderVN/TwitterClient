@@ -12,7 +12,7 @@ import com.longngo.moviebox.ui.activity.Navigator;
 
 import com.ngohoang.along.appcore.common.DynamicHeightImageView;
 import com.ngohoang.along.appcore.common.recyclerviewhelper.PlaceHolderDrawableHelper;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieVM;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

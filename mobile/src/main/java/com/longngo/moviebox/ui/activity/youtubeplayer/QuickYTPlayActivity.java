@@ -10,9 +10,9 @@ import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
-import com.longngo.moviebox.BuildConfig;
 import com.longngo.moviebox.FootballFanApplication;
 import com.longngo.moviebox.R;
+import com.ngohoang.along.appcore.BuildConfig;
 
 import java.util.concurrent.ExecutionException;
 

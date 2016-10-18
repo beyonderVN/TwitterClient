@@ -3,7 +3,7 @@ package com.longngo.moviebox.ui.adapter.vmfactory;
 import android.view.View;
 
 import com.longngo.moviebox.ui.adapter.viewholder.BaseViewHolder;
-import com.ngohoang.along.appcore.presentation.viewmodel.VMTypeFactory;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.VMTypeFactory;
 
 
 /**

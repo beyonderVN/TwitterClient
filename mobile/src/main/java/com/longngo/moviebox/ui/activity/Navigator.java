@@ -8,7 +8,7 @@ import android.content.Intent;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.longngo.moviebox.ui.activity.detail.DetailActivity;
 import com.longngo.moviebox.ui.activity.youtubeplayer.QuickYTPlayActivity;
-import com.ngohoang.along.appcore.presentation.viewmodel.BaseVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.BaseVM;
 
 
 /**

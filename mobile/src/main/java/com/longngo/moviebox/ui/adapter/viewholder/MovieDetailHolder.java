@@ -10,7 +10,7 @@ import com.longngo.moviebox.R;
 
 
 import com.ngohoang.along.appcore.common.DynamicHeightImageView;
-import com.ngohoang.along.appcore.presentation.viewmodel.MovieDetailVM;
+import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieDetailVM;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
