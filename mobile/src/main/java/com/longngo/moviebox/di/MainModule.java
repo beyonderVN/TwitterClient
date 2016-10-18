@@ -2,7 +2,7 @@ package com.longngo.moviebox.di;
 
 import android.content.Context;
 
-import com.longngo.moviebox.FootballFanApplication;
+import com.longngo.moviebox.MainApplication;
 import com.ngohoang.along.appcore.common.schedulers.BaseSchedulerProvider;
 import com.ngohoang.along.appcore.common.schedulers.SchedulerProvider;
 import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxServiceApi;
@@ -21,9 +21,9 @@ import dagger.Provides;
 @Module
 public class MainModule {
     private Context context;
-    private final FootballFanApplication application;
+    private final MainApplication application;
 
-    public MainModule(FootballFanApplication application) {
+    public MainModule(MainApplication application) {
         this.application = application;
     }
 

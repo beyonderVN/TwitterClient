@@ -6,6 +6,8 @@ import com.ngohoang.along.appcore.common.coremvp.SimpleMVPPresenter;
 import com.ngohoang.along.appcore.common.schedulers.BaseSchedulerProvider;
 import com.ngohoang.along.appcore.data.nytimes.model.Doc;
 import com.ngohoang.along.appcore.data.nytimes.source.NYTimesRepository;
+import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.BaseVM;
+import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.mapper.Mapper;
 
 import java.util.List;
 
@@ -13,6 +15,7 @@ import javax.inject.Inject;
 
 import rx.Observer;
 import rx.Subscription;
+import rx.functions.Func1;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -54,16 +57,16 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
         getPresentationModel().reset(column);
         Subscription subscription = nyTimesRepository
                 .getNews()
-//                .map(new Func1<List<Doc>, List<BaseVM>>() {
-//                    @Override
-//                    public List<BaseVM> call(List<Doc> competitions) {
-//                        return Mapper.tranToVM(competitions);
-//                    }
-//                })
+                .map(new Func1<List<Doc>, List<BaseVM>>() {
+                    @Override
+                    public List<BaseVM> call(List<Doc> docList) {
+                        return Mapper.tranToVM(docList);
+                    }
+                })
 
                 .subscribeOn( baseSchedulerProvider.computation())
                 .observeOn( baseSchedulerProvider.ui())
-                .subscribe(new Observer<List<Doc>>() {
+                .subscribe(new Observer<List<BaseVM>>() {
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "onCompleted: ");
@@ -75,19 +78,19 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
                     }
 
                     @Override
-                    public void onNext(List<Doc> docs) {
+                    public void onNext(List<BaseVM> docs) {
                         Log.d(TAG, "onNext: "+docs.size());
-//                        if (!competitions.isEmpty()) {
-//                            Log.d(TAG, "onSuccess: "+competitions.size());
-//
-//                            getPresentationModel().addAndCollapse(competitions);
-//
-//                            getPresentationModel().setCurrentPage(getPresentationModel().getCurrentPage()+1);
-//                        } else {
-//                            Log.d(TAG, "onSuccess: is empty");
-//                        }
-//                        getPresentationModel().stopLoadingMore();
-//                        updateView();
+                        if (!docs.isEmpty()) {
+                            Log.d(TAG, "onSuccess: "+docs.size());
+
+                            getPresentationModel().addAndCollapse(docs);
+
+                            getPresentationModel().setCurrentPage(getPresentationModel().getCurrentPage()+1);
+                        } else {
+                            Log.d(TAG, "onSuccess: is empty");
+                        }
+                        getPresentationModel().stopLoadingMore();
+                        updateView();
 
                     }
                 });
@@ -95,45 +98,48 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
 
     }
     public void fetchMore(){
-//        startLoadingMore();
-//        mSubscriptions.clear();
-//        Subscription subscription = nyTimesRepository
-//                .getMovieList(getPresentationModel().getNextPage())
-//                .map(new Func1<List<Movie>, List<BaseVM>>() {
-//                    @Override
-//                    public List<BaseVM> call(List<Movie> competitions) {
-//                        return Mapper.tranToVM(competitions);
-//                    }
-//                })
-//                .subscribeOn( baseSchedulerProvider.computation())
-//                .observeOn( baseSchedulerProvider.ui())
-//                .subscribe(new Observer<List<BaseVM>>() {
-//                    @Override
-//                    public void onCompleted() {
-//                        Log.d(TAG, "onCompleted: ");
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        Log.e(TAG, "onError: ", e);
-//                    }
-//
-//                    @Override
-//                    public void onNext(List<BaseVM> competitions) {
-//                        Log.d(TAG, "onNext: "+competitions.size());
-//                        if (!competitions.isEmpty()) {
-//                            Log.d(TAG, "onSuccess: "+competitions.size());
-//                            stopLoadingMore();
-//                            getPresentationModel().addAndCollapse(competitions);
-//                            getPresentationModel().setCurrentPage(getPresentationModel().getCurrentPage()+1);
-//                            updateView();
-//                        } else {
-//                            Log.d(TAG, "onSuccess: is empty");
-//                        }
-//                    }
-//                });
-//        mSubscriptions.add(subscription);
+        startLoadingMore();
+        mSubscriptions.clear();
+        Subscription subscription = nyTimesRepository
+                .getNews()
+                .map(new Func1<List<Doc>, List<BaseVM>>() {
+                    @Override
+                    public List<BaseVM> call(List<Doc> docList) {
+                        return Mapper.tranToVM(docList);
+                    }
+                })
+
+                .subscribeOn( baseSchedulerProvider.computation())
+                .observeOn( baseSchedulerProvider.ui())
+                .subscribe(new Observer<List<BaseVM>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d(TAG, "onCompleted: ");
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, "onError: ", e);
+                    }
+
+                    @Override
+                    public void onNext(List<BaseVM> docs) {
+                        Log.d(TAG, "onNext: "+docs.size());
+                        stopLoadingMore();
+                        if (!docs.isEmpty()) {
+                            Log.d(TAG, "onSuccess: "+docs.size());
+
+                            getPresentationModel().addAndCollapse(docs);
+
+                            getPresentationModel().setCurrentPage(getPresentationModel().getCurrentPage()+1);
+                        } else {
+                            Log.d(TAG, "onSuccess: is empty");
+                        }
+
+
+                    }
+                });
+        mSubscriptions.add(subscription);
     }
 
     @Override
@@ -159,7 +165,7 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
         getPresentationModel().startLoadingMore();
         updateView();
     }
-    private void stopLoadingMore() {
+    private void  stopLoadingMore(){
         getPresentationModel().stopLoadingMore();
         updateView();
     }

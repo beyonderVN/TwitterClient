@@ -434,4 +434,15 @@ public class Doc implements Serializable {
         this.slideshowCredits = slideshowCredits;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("***** "+this.getClass().getCanonicalName()+" Entity Details *****\n");
+        stringBuilder.append("content=" + this.getSnippet() + "\n");
+        stringBuilder.append("url=" + this.getWebUrl() + "\n");
+        stringBuilder.append("*******************************");
+
+        return stringBuilder.toString();
+    }
 }

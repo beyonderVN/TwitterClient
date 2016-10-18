@@ -22,6 +22,7 @@ public class DynamicHeightImageView extends ImageView {
 
     public void setRatio(double ratio) {
         whRatio = ratio;
+        Log.d(TAG, "setRatio: "+whRatio);
     }
 
     @Override
@@ -64,6 +65,8 @@ public class DynamicHeightImageView extends ImageView {
                     whRatio = (double) height / (double) width;
                     setMeasuredDimension(getMeasuredWidth(), (int) (whRatio * getMeasuredWidth()));
                 }
+            }else {
+                super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             }
         }
 

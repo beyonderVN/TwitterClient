@@ -25,7 +25,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class MainPresenter extends SimpleMVPPresenter<MainView,MainPresentationModel> implements MainView{
-    private static final String TAG = "NYTimesPresenter";
+    private static final String TAG = "MainPresenter";
     private BaseSchedulerProvider baseSchedulerProvider;
     private CompositeSubscription mSubscriptions = new CompositeSubscription();
 

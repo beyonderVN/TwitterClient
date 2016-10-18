@@ -30,8 +30,6 @@ public class NYTimesService {
                 .map(new Func1<ResponseData, List<Doc>>() {
                     @Override
                     public List<Doc> call(ResponseData responseData) {
-
-
                         List<Doc> docs = responseData.getResponse().getDocs();
                         return docs;
                     }

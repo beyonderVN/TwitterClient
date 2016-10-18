@@ -15,7 +15,7 @@ import java.util.List;
  */
 
 public class MainPresentationModel extends BasePresentationModel<BaseVM> {
-    private static final String TAG = "NYTimesPresentationModel";
+    private static final String TAG = "MainPreModel";
     public MainPresentationModel() {
         super();
     }

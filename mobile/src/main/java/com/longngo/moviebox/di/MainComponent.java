@@ -2,10 +2,10 @@ package com.longngo.moviebox.di;
 
 import android.content.Context;
 
-import com.longngo.moviebox.ui.activity.detail.DetailActivity;
-import com.longngo.moviebox.ui.activity.detail.DetailUsingOnlyRVActivity;
-import com.longngo.moviebox.ui.activity.main.MainActivity;
-import com.longngo.moviebox.ui.activity.main.NYTimesActivity;
+import com.longngo.moviebox.ui.moviebox.activity.detail.DetailActivity;
+import com.longngo.moviebox.ui.moviebox.activity.detail.DetailUsingOnlyRVActivity;
+import com.longngo.moviebox.ui.moviebox.activity.main.MainActivity;
+import com.longngo.moviebox.ui.nytimes.NYTimesActivity;
 import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxService;
 import com.ngohoang.along.appcore.data.nytimes.backend.NYTimesService;
 
@@ -32,4 +32,5 @@ public interface MainComponent {
 
 
     void inject(NYTimesActivity nyTimesActivity);
+
 }

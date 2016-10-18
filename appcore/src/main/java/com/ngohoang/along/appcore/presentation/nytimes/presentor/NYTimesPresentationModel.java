@@ -3,8 +3,8 @@ package com.ngohoang.along.appcore.presentation.nytimes.presentor;
 import android.util.Log;
 
 import com.ngohoang.along.appcore.presentation.BasePresentationModel;
-import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.BaseVM;
-import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.LoadingMoreVM;
+import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.BaseVM;
+import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.LoadingMoreVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +108,7 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
         if(getVisitableList().size()==0) return;
         getVisitableList().remove(getVisitableList().size() - 1);
         loadingMore = false;
+        Log.d(TAG, "stopLoadingMore: "+getVisitableList().size());
     }
 
     public void fixLayout(int column) {
