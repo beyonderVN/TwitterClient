@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
 import rx.Subscription;
 import rx.functions.Func1;
@@ -52,29 +53,33 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
     }
 
     public void fetchRepositoryFirst(int column){
+
         showProcess();
         mSubscriptions.clear();
         getPresentationModel().reset(column);
         Subscription subscription = nyTimesRepository
-                .getNews()
+                .getNews(getPresentationModel().getSearchRequest())
                 .map(new Func1<List<Doc>, List<BaseVM>>() {
                     @Override
                     public List<BaseVM> call(List<Doc> docList) {
                         return Mapper.tranToVM(docList);
                     }
                 })
-
                 .subscribeOn( baseSchedulerProvider.computation())
                 .observeOn( baseSchedulerProvider.ui())
                 .subscribe(new Observer<List<BaseVM>>() {
                     @Override
                     public void onCompleted() {
                         Log.d(TAG, "onCompleted: ");
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "onError: ", e);
+                        if (e instanceof HttpException){
+                            onErrorHttp400();
+                        }
                     }
 
                     @Override
@@ -84,8 +89,6 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
                             Log.d(TAG, "onSuccess: "+docs.size());
 
                             getPresentationModel().addAndCollapse(docs);
-
-                            getPresentationModel().setCurrentPage(getPresentationModel().getCurrentPage()+1);
                         } else {
                             Log.d(TAG, "onSuccess: is empty");
                         }
@@ -101,7 +104,7 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
         startLoadingMore();
         mSubscriptions.clear();
         Subscription subscription = nyTimesRepository
-                .getNews()
+                .getNews(getPresentationModel().getSearchRequest())
                 .map(new Func1<List<Doc>, List<BaseVM>>() {
                     @Override
                     public List<BaseVM> call(List<Doc> docList) {
@@ -120,6 +123,7 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
                     @Override
                     public void onError(Throwable e) {
                         Log.e(TAG, "onError: ", e);
+
                     }
 
                     @Override
@@ -128,10 +132,7 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
                         stopLoadingMore();
                         if (!docs.isEmpty()) {
                             Log.d(TAG, "onSuccess: "+docs.size());
-
                             getPresentationModel().addAndCollapse(docs);
-
-                            getPresentationModel().setCurrentPage(getPresentationModel().getCurrentPage()+1);
                         } else {
                             Log.d(TAG, "onSuccess: is empty");
                         }
@@ -161,6 +162,12 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
 
     }
 
+    @Override
+    public void onErrorHttp400() {
+        if(getMvpView()==null)return;
+        getMvpView().onErrorHttp400();
+    }
+
     private void startLoadingMore() {
         getPresentationModel().startLoadingMore();
         updateView();
@@ -183,4 +190,5 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
             fetchRepositoryFirst(column);
         }
     }
+
 }

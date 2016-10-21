@@ -5,8 +5,6 @@ import android.content.Context;
 import com.longngo.moviebox.MainApplication;
 import com.ngohoang.along.appcore.common.schedulers.BaseSchedulerProvider;
 import com.ngohoang.along.appcore.common.schedulers.SchedulerProvider;
-import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxServiceApi;
-import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxServiceFactory;
 import com.ngohoang.along.appcore.data.nytimes.backend.NYTimesServiceApi;
 import com.ngohoang.along.appcore.data.nytimes.backend.NYTimesServiceFactory;
 
@@ -29,12 +27,6 @@ public class MainModule {
 
     @Provides @Singleton Context provideApplicationContext() {
         return this.application;
-    }
-
-    @Provides
-    @Singleton
-    MovieBoxServiceApi provideMovieBoxServiceApi() {
-        return MovieBoxServiceFactory.makeService();
     }
 
     @Provides

@@ -1,5 +1,7 @@
 package com.ngohoang.along.appcore.data.nytimes.backend;
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.ngohoang.along.appcore.BuildConfig;
 
@@ -53,6 +55,8 @@ public class NYTimesServiceFactory {
                                 .url(url);
 
                         Request request = requestBuilder.build();
+
+                        Log.d("OKHTTP", "intercept: "+request.url().toString());
                         return chain.proceed(request);
                     }
                 })

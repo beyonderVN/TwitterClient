@@ -42,15 +42,17 @@ public class DocHolder extends BaseViewHolder<DocVM> {
 
             }
         });
-        imageView.setRatio((double)item.getDoc().getMultimedia().get(1).getHeight()
-        /(double)item.getDoc().getMultimedia().get(1).getWidth());
+
+            imageView.setRatio((double)item.getDoc().getMultimedia().get(0).getHeight()
+                    /(double)item.getDoc().getMultimedia().get(0).getWidth());
 //        Glide.with(itemView.getContext())
 //                .load("https://image.tmdb.org/t/p/w342"+item.getMovie().getPosterPath())
 //                .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable())
 //                .into(imageView);
-        Picasso.with(itemView.getContext()).load("https://static01.nyt.com/"+item.getDoc().getMultimedia().get(1).getUrl())
-//                .placeholder(PlaceHolderDrawableHelper.getBackgroundDrawable(1))
-                .into(imageView);
+            Picasso.with(itemView.getContext()).load("https://static01.nyt.com/"+item.getDoc().getMultimedia().get(0).getUrl())
+                    .into(imageView);
+
+
 
 
     }

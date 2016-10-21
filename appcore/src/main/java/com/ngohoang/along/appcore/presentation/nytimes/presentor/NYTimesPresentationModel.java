@@ -2,6 +2,7 @@ package com.ngohoang.along.appcore.presentation.nytimes.presentor;
 
 import android.util.Log;
 
+import com.ngohoang.along.appcore.data.nytimes.model.SearchRequest;
 import com.ngohoang.along.appcore.presentation.BasePresentationModel;
 import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.BaseVM;
 import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.LoadingMoreVM;
@@ -19,6 +20,16 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
         super();
     }
     private int column = 1;
+
+    public SearchRequest getSearchRequest() {
+        return searchRequest;
+    }
+
+    public void setSearchRequest(SearchRequest searchRequest) {
+        this.searchRequest = searchRequest;
+    }
+
+    SearchRequest searchRequest = new SearchRequest();
 
     @Override
     public boolean isShouldFetchRepositories() {
@@ -60,6 +71,7 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
              ) {
             addAndCollapse(baseVM);
         }
+        searchRequest.setPage(searchRequest.getPage()+1);
     }
     public void add(List<BaseVM> baseVMs){
         visitableList.addAll(baseVMs);
@@ -81,23 +93,12 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
 
     public void reset(int column) {
         getVisitableList().clear();
-        currentPage = 0;
         noMore =false;
         loadingMore =true;
         countNonFullSpanItem=0;
         this.column = column;
     }
-    int currentPage = 0;
 
-    public int getCurrentPage() {
-        return currentPage;
-    }
-    public int getNextPage() {
-        return ++currentPage;
-    }
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
-    }
     public void startLoadingMore() {
         if (loadingMore) return;
         loadingMore = true;

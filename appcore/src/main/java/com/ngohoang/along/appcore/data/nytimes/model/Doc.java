@@ -58,9 +58,7 @@ public class Doc implements Serializable {
     @SerializedName("subsection_name")
     @Expose
     private Object subsectionName;
-    @SerializedName("byline")
-    @Expose
-    private Byline byline;
+
     @SerializedName("type_of_material")
     @Expose
     private String typeOfMaterial;
@@ -344,23 +342,6 @@ public class Doc implements Serializable {
         this.subsectionName = subsectionName;
     }
 
-    /**
-     * 
-     * @return
-     *     The byline
-     */
-    public Byline getByline() {
-        return byline;
-    }
-
-    /**
-     * 
-     * @param byline
-     *     The byline
-     */
-    public void setByline(Byline byline) {
-        this.byline = byline;
-    }
 
     /**
      * 

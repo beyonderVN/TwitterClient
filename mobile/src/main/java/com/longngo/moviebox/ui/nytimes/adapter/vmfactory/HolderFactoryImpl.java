@@ -5,8 +5,10 @@ import android.view.View;
 import com.longngo.moviebox.R;
 import com.longngo.moviebox.ui.nytimes.adapter.viewholder.BaseViewHolder;
 import com.longngo.moviebox.ui.nytimes.adapter.viewholder.DocHolder;
+import com.longngo.moviebox.ui.nytimes.adapter.viewholder.DocNoImageHolder;
 import com.longngo.moviebox.ui.nytimes.adapter.viewholder.LoadingMoreHolder;
 import com.longngo.moviebox.ui.nytimes.adapter.viewholder.NoMoreItemHolder;
+import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.DocNoImageVM;
 import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.DocVM;
 import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.LoadingMoreVM;
 import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.NoMoreItemVM;
@@ -17,7 +19,8 @@ import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.NoMoreItemVM;
  */
 
 public class HolderFactoryImpl implements HolderFactory {
-    private static final int DOC_VM = R.layout.layout_item_new;
+    private static final int DOC_VM = R.layout.layout_item_news;
+    private static final int DOC_NO_IMAGE_VM = R.layout.layout_item_news_no_image;
     private static final int LOADING_MORE = R.layout.infinite_loading;
     private static final int NO_MORE = R.layout.infinite_no_more;
 
@@ -32,6 +35,8 @@ public class HolderFactoryImpl implements HolderFactory {
                 return new LoadingMoreHolder(view);
             case NO_MORE:
                 return new NoMoreItemHolder(view);
+            case DOC_NO_IMAGE_VM:
+                return new DocNoImageHolder(view);
         }
         return null;
     }
@@ -44,6 +49,11 @@ public class HolderFactoryImpl implements HolderFactory {
     @Override
     public int getType(NoMoreItemVM noMoreItemVM) {
         return NO_MORE;
+    }
+
+    @Override
+    public int getType(DocNoImageVM docNoImageVM) {
+        return DOC_NO_IMAGE_VM;
     }
 
     @Override

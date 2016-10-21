@@ -23,9 +23,7 @@ public class Multimedium implements Serializable {
     @SerializedName("subtype")
     @Expose
     private String subtype;
-    @SerializedName("legacy")
-    @Expose
-    private Legacy legacy;
+
     @SerializedName("type")
     @Expose
     private String type;
@@ -102,23 +100,7 @@ public class Multimedium implements Serializable {
         this.subtype = subtype;
     }
 
-    /**
-     * 
-     * @return
-     *     The legacy
-     */
-    public Legacy getLegacy() {
-        return legacy;
-    }
 
-    /**
-     * 
-     * @param legacy
-     *     The legacy
-     */
-    public void setLegacy(Legacy legacy) {
-        this.legacy = legacy;
-    }
 
     /**
      * 

@@ -3,6 +3,7 @@ package com.ngohoang.along.appcore.data.nytimes.source.remote;
 
 import com.ngohoang.along.appcore.data.nytimes.backend.NYTimesService;
 import com.ngohoang.along.appcore.data.nytimes.model.Doc;
+import com.ngohoang.along.appcore.data.nytimes.model.SearchRequest;
 import com.ngohoang.along.appcore.data.nytimes.source.NYTimesDataSource;
 
 import java.util.List;
@@ -27,8 +28,8 @@ public class NYTimesRemoteDataSource implements NYTimesDataSource {
     }
 
     @Override
-    public Observable<List<Doc>> getNews() {
-        return NYTimesService.getNews();
+    public Observable<List<Doc>> getNews(SearchRequest searchRequest) {
+        return NYTimesService.getNews(searchRequest);
     }
     @Override
     public void saveCompetition(Doc doc) {

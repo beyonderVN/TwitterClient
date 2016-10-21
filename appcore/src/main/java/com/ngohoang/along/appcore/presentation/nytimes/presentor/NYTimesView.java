@@ -11,4 +11,5 @@ public interface NYTimesView extends MVPView {
     void showProcess();
     void showContent();
     void updateView();
+    void onErrorHttp400();
 }

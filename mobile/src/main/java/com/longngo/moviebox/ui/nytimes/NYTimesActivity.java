@@ -1,10 +1,7 @@
 package com.longngo.moviebox.ui.nytimes;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
@@ -15,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +24,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.ViewAnimator;
 
@@ -35,8 +34,8 @@ import com.longngo.moviebox.MainApplication;
 import com.longngo.moviebox.R;
 import com.longngo.moviebox.ui.base.BaseActivity;
 import com.longngo.moviebox.ui.nytimes.adapter.BaseAdapter;
-import com.ngohoang.along.appcore.common.AchievementUnlocked;
 import com.ngohoang.along.appcore.common.recyclerviewhelper.InfiniteScrollListener;
+import com.ngohoang.along.appcore.data.nytimes.model.SearchRequest;
 import com.ngohoang.along.appcore.presentation.nytimes.presentor.NYTimesPresentationModel;
 import com.ngohoang.along.appcore.presentation.nytimes.presentor.NYTimesPresenter;
 import com.ngohoang.along.appcore.presentation.nytimes.presentor.NYTimesView;
@@ -44,11 +43,14 @@ import com.ngohoang.along.appcore.presentation.nytimes.presentor.NYTimesView;
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTimesView,NYTimesPresenter> implements NYTimesView{
+public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTimesView, NYTimesPresenter> implements NYTimesView {
     private static final String TAG = "MainActivity";
     private static final int POSITION_CONTENT_VIEW = 0;
     private static final int POSITION_PROGRESS_VIEW = 1;
+    private static final int POSITION_ERROR_HTTP_400 = 2;
+
     @BindInt(R.integer.column_num_news)
     int columnNum;
     @BindView(R.id.rvMovieList)
@@ -58,7 +60,16 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
 
     @BindView(R.id.viewAnimator)
     ViewAnimator resultAnimator;
-
+    @BindView(R.id.etBeginDate)
+    EditText etBeginDate;
+    @BindView(R.id.spnSort)
+    Spinner spnSort;
+    @BindView(R.id.cbArts)
+    CheckBox cbArts;
+    @BindView(R.id.cbFashion)
+    CheckBox cbFashion;
+    @BindView(R.id.cbSports)
+    CheckBox cbSports;
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -66,11 +77,18 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
 
 
     BaseAdapter baseAdapter;
+
     public void androidM() {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                 Uri.parse("package:" + getPackageName()));
         startActivityForResult(intent, 123);
 
+    }
+    @OnClick(R.id.btSave) void saveFilter(){
+        searchRequest = presenter.getPresentationModel().getSearchRequest();
+        searchRequest.setBeginDate(etBeginDate.getText().toString());
+        searchRequest.setSort(spnSort.getSelectedItem().toString());
+        softPanel.setVisibility(View.GONE);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,25 +97,26 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
         ButterKnife.bind(this);
         setupUI();
 
-        if (Build.VERSION.SDK_INT >= 23) {
-
-            if (!Settings.canDrawOverlays(getApplicationContext()))
-                new AlertDialog.Builder(this)
-
-                        .setMessage("Starting from Android 6, " + getResources().getString(R.string.app_name) + " needs permission to display notifications. Click enable to proceed")
-                        .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                androidM();
-                            }
-                        })
-
-                        .show();
-
-        }
+//        if (Build.VERSION.SDK_INT >= 23) {
+//
+//            if (!Settings.canDrawOverlays(getApplicationContext()))
+//                new AlertDialog.Builder(this)
+//
+//                        .setMessage("Starting from Android 6, " + getResources().getString(R.string.app_name) + " needs permission to display notifications. Click enable to proceed")
+//                        .setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                androidM();
+//                            }
+//                        })
+//
+//                        .show();
+//
+//        }
 
 
     }
-    void setupUI(){
+
+    void setupUI() {
         setupRV();
         setupToolBar();
         setupSwipeRefreshLayout();
@@ -113,42 +132,13 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
                         return true;
                     }
                 });
+
     }
+
     public void selectDrawerItem(MenuItem menuItem) {
-//        // Create a new fragment and specify the fragment to show based on nav item clicked
-//        Fragment fragment = null;
-//        Class fragmentClass;
-//        switch(menuItem.getItemId()) {
-//            case R.id.nav_first_fragment:
-//                fragmentClass = FirstFragment.class;
-//                break;
-//            case R.id.nav_second_fragment:
-//                fragmentClass = SecondFragment.class;
-//                break;
-//            case R.id.nav_third_fragment:
-//                fragmentClass = ThirdFragment.class;
-//                break;
-//            default:
-//                fragmentClass = FirstFragment.class;
-//        }
-//
-//        try {
-//            fragment = (Fragment) fragmentClass.newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        // Insert the fragment by replacing any existing fragment
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-//
-//        // Highlight the selected item has been done by NavigationView
-//        menuItem.setChecked(true);
-//        // Set action bar title
-//        setTitle(menuItem.getTitle());
-//        // Close the navigation drawer
-//        mDrawer.closeDrawers();
+
     }
+
     private void setupStatusBar() {
         Window window = getWindow();
 
@@ -173,21 +163,28 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
                     @Override
                     public void run() {
                         Log.d("Swipe", "Refreshing Number");
-                        presenter.fetchRepositoryFirst(columnNum);
+                        refresh();
                     }
                 }, 500);
 
             }
         });
     }
+    @OnClick(R.id.tvErrorHTTP400)
+    void refresh() {
+        searchRequest = presenter.getPresentationModel().getSearchRequest();
+        searchRequest.setPage(0);
+        presenter.fetchRepositoryFirst(columnNum);
+    }
 
-    void setupToolBar(){
+    void setupToolBar() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Movie Box");
     }
-    void setupRV(){
+
+    void setupRV() {
         final StaggeredGridLayoutManager staggeredGridLayoutManagerVertical =
                 new StaggeredGridLayoutManager(
                         columnNum, //The number of Columns in the grid
@@ -225,9 +222,11 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
         });
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
+        searchRequest = presenter.getPresentationModel().getSearchRequest();
         presenter.fetchRepository(columnNum);
     }
 
@@ -245,60 +244,72 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
 
     @Override
     public void showProcess() {
-        if(resultAnimator.getDisplayedChild()== POSITION_PROGRESS_VIEW) return;
+        if (resultAnimator.getDisplayedChild() == POSITION_PROGRESS_VIEW) return;
         resultAnimator.setDisplayedChild(POSITION_PROGRESS_VIEW);
         swipeRefresh.setRefreshing(false);
     }
 
     @Override
     public void showContent() {
-        if(resultAnimator.getDisplayedChild()== POSITION_CONTENT_VIEW) return;
+        if (resultAnimator.getDisplayedChild() == POSITION_CONTENT_VIEW) return;
         resultAnimator.setDisplayedChild(POSITION_CONTENT_VIEW);
     }
 
     @Override
     public void updateView() {
-        if(baseAdapter == null){
+        if (baseAdapter == null) {
             baseAdapter = new BaseAdapter(this, presenter.getPresentationModel());
             listRV.setAdapter(baseAdapter);
-        }else{
+        } else {
             baseAdapter.notifyDataSetChanged();
         }
 
         listRV.setLayoutFrozen(false);
         swipeRefresh.setRefreshing(false);
         showContent();
-        AchievementUnlocked test=
-                new AchievementUnlocked(this)
-                        .setTitle("Lilac and Gooseberries")
-                        .setSubtitleColor(0x80ffffff)
-                        .setSubTitle("Find the sorceress")
-                        .setBackgroundColor(Color.parseColor("#C2185B"))
-                        .setTitleColor(0xffffffff)
-                        .setIcon(getDrawable(R.drawable.ic_android_white_24dp)).isLarge(false).build();
-        test.show();
+//        AchievementUnlocked test=
+//                new AchievementUnlocked(this)
+//                        .setTitle("Lilac and Gooseberries")
+//                        .setSubtitleColor(0x80ffffff)
+//                        .setSubTitle("Find the sorceress")
+//                        .setBackgroundColor(Color.parseColor("#C2185B"))
+//                        .setTitleColor(0xffffffff)
+//                        .setIcon(getDrawable(R.drawable.ic_android_white_24dp)).isLarge(false).build();
+//        test.show();
     }
+
+    @Override
+    public void onErrorHttp400() {
+        resultAnimator.setDisplayedChild(POSITION_ERROR_HTTP_400);
+    }
+
     @BindView(R.id.appbar)
     AppBarLayout appBarLayout;
     SearchView searchView;
-    View view;
+    View softPanel;
+    SearchRequest searchRequest;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) menuItem.getActionView();
-        view = findViewById(R.id.softPanel);
-        if (view == null) {
-            Toast.makeText(this, "view == null", Toast.LENGTH_SHORT).show();
+        softPanel = findViewById(R.id.softPanel);
+        if (softPanel == null) {
+            Toast.makeText(this, "softPanel == null", Toast.LENGTH_SHORT).show();
         }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchView.onActionViewCollapsed();
-                view.setVisibility(View.GONE);
-                appBarLayout.setBackgroundColor(getResources().getColor(R.color.tran));
+                searchRequest = presenter.getPresentationModel().getSearchRequest();
+                searchRequest.setBeginDate(etBeginDate.getText().toString());
+                searchRequest.setSort(spnSort.getSelectedItem().toString());
+                searchRequest.setQ(query);
+                searchRequest.setPage(0);
+                presenter.fetchRepositoryFirst(columnNum);
+                searchView.clearFocus();
+                softPanel.setVisibility(View.GONE);
                 return true;
             }
 
@@ -308,7 +319,6 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
             }
         });
         return true;
-
 
 
     }
@@ -325,15 +335,15 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
                 return true;
             case R.id.action_search:
                 searchView.requestFocus();
-                appBarLayout.setBackgroundColor(getResources().getColor(R.color.gray));
+
                 return true;
             case R.id.action_sort:
-                if(view.getVisibility()==View.VISIBLE){
-                    view.setVisibility(View.GONE);
-                    appBarLayout.setBackgroundColor(getResources().getColor(R.color.tran));
-                }else{
-                    view.setVisibility(View.VISIBLE);
-                    appBarLayout.setBackgroundColor(getResources().getColor(R.color.gray));
+                if (softPanel.getVisibility() == View.VISIBLE) {
+                    softPanel.setVisibility(View.GONE);
+
+                } else {
+                    softPanel.setVisibility(View.VISIBLE);
+
                 }
                 return true;
 
@@ -349,4 +359,6 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel,NYTim
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
     }
+
+
 }

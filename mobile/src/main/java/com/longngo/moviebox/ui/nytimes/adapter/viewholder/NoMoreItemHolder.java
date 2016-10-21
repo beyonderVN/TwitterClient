@@ -3,8 +3,6 @@ package com.longngo.moviebox.ui.nytimes.adapter.viewholder;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
-import com.ngohoang.along.appcore.presentation.moviebox.viewmodel.MovieVM;
-
 import butterknife.ButterKnife;
 
 /**
@@ -12,7 +10,7 @@ import butterknife.ButterKnife;
  *
  */
 
-public class NoMoreItemHolder extends BaseViewHolder<MovieVM> {
+public class NoMoreItemHolder extends BaseViewHolder{
     private static final String TAG = "NoMoreItemHolder";
 
     public NoMoreItemHolder(View itemView) {
@@ -21,7 +19,7 @@ public class NoMoreItemHolder extends BaseViewHolder<MovieVM> {
     }
 
     @Override
-    public  void bind(MovieVM item) {
+    public  void bind(Object item) {
         StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) itemView.getLayoutParams();
         layoutParams.setFullSpan(true);
     }

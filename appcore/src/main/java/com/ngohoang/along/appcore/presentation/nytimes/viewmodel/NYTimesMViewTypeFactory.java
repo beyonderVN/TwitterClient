@@ -15,4 +15,5 @@ public interface NYTimesMViewTypeFactory {
 
     int getType(NoMoreItemVM noMoreItemVM);
 
+    int getType(DocNoImageVM docNoImageVM);
 }

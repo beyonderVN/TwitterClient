@@ -10,6 +10,7 @@ import android.support.annotation.VisibleForTesting;
 import android.util.Log;
 
 import com.ngohoang.along.appcore.data.nytimes.model.Doc;
+import com.ngohoang.along.appcore.data.nytimes.model.SearchRequest;
 import com.ngohoang.along.appcore.data.nytimes.source.remote.NYTimesRemoteDataSource;
 
 import java.util.List;
@@ -65,10 +66,10 @@ public class NYTimesRepository implements NYTimesDataSource {
 
 
     @Override
-    public Observable<List<Doc>> getNews() {
+    public Observable<List<Doc>> getNews(SearchRequest searchRequest) {
 
 
-        Observable<List<Doc>> listObservable = getAndSaveRemoteNews();
+        Observable<List<Doc>> listObservable = getAndSaveRemoteNews(searchRequest);
         return listObservable;
 
     }
@@ -80,9 +81,10 @@ public class NYTimesRepository implements NYTimesDataSource {
 
 
 
-        private Observable<List<Doc>> getAndSaveRemoteNews() {
+        private Observable<List<Doc>> getAndSaveRemoteNews(SearchRequest searchRequest) {
             return mNYTimesRemoteDataSource
-                    .getNews()
+
+                    .getNews(searchRequest)
                     .flatMap(new Func1<List<Doc>, Observable<List<Doc>>>() {
                         @Override
                         public Observable<List<Doc>> call(List<Doc> movieList) {
@@ -105,7 +107,8 @@ public class NYTimesRepository implements NYTimesDataSource {
                         public void call() {
                             mCacheIsDirty = false;
                         }
-                    });
+                    })
+                    ;
 
         }
 

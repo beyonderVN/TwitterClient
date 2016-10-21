@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.ngohoang.along.appcore.data.nytimes.model.Doc;
 import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.BaseVM;
+import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.DocNoImageVM;
 import com.ngohoang.along.appcore.presentation.nytimes.viewmodel.DocVM;
 
 import java.util.ArrayList;
@@ -20,12 +21,19 @@ public class Mapper {
         Log.d(TAG, "tranToDocVM: "+doc.toString());
         return new DocVM(doc);
     }
-
+    public static BaseVM tranToDocNoImageVM(Doc doc){
+        Log.d(TAG, "tranToDocVM: "+doc.toString());
+        return new DocNoImageVM(doc);
+    }
     public static List<BaseVM> tranToVM(List<Doc> docList){
         List<BaseVM> list = new ArrayList<>();
 
         for (Doc item :docList) {
+            if(item.getMultimedia().size()==0){
+                list.add(tranToDocNoImageVM(item));
+            }else {
                 list.add(tranToDocVM(item));
+            }
         }
         return list;
     }
