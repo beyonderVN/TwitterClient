@@ -1,6 +1,6 @@
-# MovieBox
+# Project 2 - *Articale Search*
 
-**Name of your app** shows the latest movies currently playing in theaters. The app utilizes the Movie Database API to display images and basic information about these movies to the user.
+**Name of your app** is an android app that allows a user to search for articles on web using simple filters. The app utilizes [New York Times Search API](http://developer.nytimes.com/docs/read/article_search_api_v2).
 
 Time spent: **36** hours spent in total
 
@@ -8,43 +8,53 @@ Time spent: **36** hours spent in total
 
 The following **required** functionality is completed:
 
-* [ok] User can **scroll through current movies** from the Movie Database API
-* [ok] Layout is optimized with the [ViewHolder](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView#improving-performance-with-the-viewholder-pattern) pattern.
-* [ok] For each movie displayed, user can see the following details:
-  * [ok] Title, Poster Image, Overview (Portrait mode)
-  * [ok] Title, Backdrop Image, Overview (Landscape mode)
+* [ok] User can **search for news article** by specifying a query and launching a search. Search displays a grid of image results from the New York Times Search API.
+* [ok] User can click on "settings" which allows selection of **advanced search options** to filter results
+* [ok] User can configure advanced search filters such as:
+  * [ok] Begin Date (using a date picker)
+  * [ok] News desk values (Arts, Fashion & Style, Sports)
+  * [ok] Sort order (oldest or newest)
+* [ok] Subsequent searches have any filters applied to the search results
+* [ok] User can tap on any article in results to view the contents in an embedded browser.
+* [ok] User can **scroll down to see more articles**. The maximum number of articles is limited by the API search.
 
 The following **optional** features are implemented:
 
-* [ok] User can **pull-to-refresh** popular stream to get the latest movies.
-* [ok] Display a nice default [placeholder graphic](http://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#configuring-picasso) for each image during loading.
-* [ok] Improved the user interface through styling and coloring.
+* [ok] Implements robust error handling, [check if internet is available](http://guides.codepath.com/android/Sending-and-Managing-Network-Requests#checking-for-network-connectivity), handle error cases, network failures
+* [ok] Used the **ActionBar SearchView** or custom layout as the query box instead of an EditText
+* [ok] User can **share an article link** to their friends or email it to themselves
+* [ok] Replaced Filter Settings Activity with a lightweight modal overlay
+* [ok] Improved the user interface and experiment with image assets and/or styling and coloring
 
 The following **bonus** features are implemented:
 
-* [ok] Allow user to view details of the movie including ratings and popularity within a separate activity or dialog fragment.
-* [ok] When viewing a popular movie (i.e. a movie voted for more than 5 stars) the video should show the full backdrop image as the layout.  Uses [Heterogenous ListViews](http://guides.codepath.com/android/Implementing-a-Heterogenous-ListView) or [Heterogenous RecyclerView](http://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView) to show different layouts.
-* [ok] Allow video trailers to be played in full-screen using the YouTubePlayerView.
-    * [ok] Overlay a play icon for videos that can be played.
-    * [ok] More popular movies should start a separate activity that plays the video immediately.
-    * [ok] Less popular videos rely on the detail page should show ratings and a YouTube preview.
-* [ok] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce boilerplate code.
-* [ok] Apply rounded corners for the poster or background images using [Picasso transformations](https://guides.codepath.com/android/Displaying-Images-with-the-Picasso-Library#other-transformations)
-* [ok] Replaced android-async-http network client with the popular [OkHttp](http://guides.codepath.com/android/Using-OkHttp) or [Volley](http://guides.codepath.com/android/Networking-with-the-Volley-Library) networking libraries.
+* [ok] Use the [RecyclerView](http://guides.codepath.com/android/Using-the-RecyclerView) with the `StaggeredGridLayoutManager` to display improve the grid of image results
+* [ok] For different news articles that only have text or only have images, use [Heterogenous Layouts](http://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView) with RecyclerView
+* [ ] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
+* [ ] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
+* [ok] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.com/android/Drawables#vector-drawables) where appropriate.
+* [ ] Replace Picasso with [Glide](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) for more efficient image rendering.
+* [ ] Uses [retrolambda expressions](http://guides.codepath.com/android/Lambda-Expressions) to cleanup event handling blocks.
+* [ok] Leverages the popular [GSON library](http://guides.codepath.com/android/Using-Android-Async-Http-Client#decoding-with-gson-library) to streamline the parsing of JSON data.
+* [ok] Leverages the [Retrofit networking library](http://guides.codepath.com/android/Consuming-APIs-with-Retrofit) to access the New York Times API.
+* [ok] Replace the embedded `WebView` with [Chrome Custom Tabs](http://guides.codepath.com/android/Chrome-Custom-Tabs) using a custom action button for sharing. (_**2 points**_)
 
 The following **additional** features are implemented:
 
-* [ok] MVP Pattern, clear architecture, using Rxjava
-* [ok] User can **push-to-load-more** popular stream to get more movies.
+* [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
-https://drive.google.com/open?id=0B9BWZYW-mLj1QW52cjdwdEkxQkk
+
+<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
+
 
 ## Open-source libraries used
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
