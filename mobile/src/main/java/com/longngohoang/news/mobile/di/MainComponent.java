@@ -1,9 +1,9 @@
-package com.longngo.moviebox.di;
+package com.longngohoang.news.mobile.di;
 
 import android.content.Context;
 
-import com.longngo.moviebox.ui.nytimes.NYTimesActivity;
-import com.ngohoang.along.appcore.data.nytimes.backend.NYTimesService;
+import com.longngohoang.news.appcore.data.backend.NYTimesService;
+import com.longngohoang.news.mobile.ui.NYTimesActivity;
 
 import javax.inject.Singleton;
 
@@ -18,8 +18,5 @@ public interface MainComponent {
     Context context();
 
     NYTimesService nYTimesService();
-
-
     void inject(NYTimesActivity nyTimesActivity);
-
 }

@@ -1,12 +1,12 @@
-package com.longngo.moviebox.ui.base;
+package com.longngohoang.news.mobile.ui.base;
 
 
 import android.support.annotation.NonNull;
 
 
-import com.ngohoang.along.appcore.common.coremvp.MVPActivity;
-import com.ngohoang.along.appcore.common.coremvp.MVPPresenter;
-import com.ngohoang.along.appcore.common.coremvp.MVPView;
+import com.longngohoang.news.appcore.common.coremvp.MVPActivity;
+import com.longngohoang.news.appcore.common.coremvp.MVPPresenter;
+import com.longngohoang.news.appcore.common.coremvp.MVPView;
 
 import java.io.Serializable;
 

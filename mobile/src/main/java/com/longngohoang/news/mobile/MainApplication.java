@@ -1,11 +1,11 @@
-package com.longngo.moviebox;
+package com.longngohoang.news.mobile;
 
 import android.app.Application;
 import android.content.Context;
 
-import com.longngo.moviebox.di.DaggerMainComponent;
-import com.longngo.moviebox.di.MainComponent;
-import com.longngo.moviebox.di.MainModule;
+import com.longngohoang.news.mobile.di.DaggerMainComponent;
+import com.longngohoang.news.mobile.di.MainComponent;
+import com.longngohoang.news.mobile.di.MainModule;
 
 
 /**
