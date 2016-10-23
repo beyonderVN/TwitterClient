@@ -4,7 +4,7 @@ import android.content.Context;
 
 
 import com.longngo.moviebox.wear.MainActivity;
-import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxService;
+import com.longngohoang.news.appcore.data.moviebox.backend.MovieBoxService;
 
 import javax.inject.Singleton;
 

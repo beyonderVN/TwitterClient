@@ -4,10 +4,10 @@ import android.content.Context;
 
 
 import com.longngo.moviebox.wear.WearApplication;
-import com.ngohoang.along.appcore.common.schedulers.BaseSchedulerProvider;
-import com.ngohoang.along.appcore.common.schedulers.SchedulerProvider;
-import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxServiceApi;
-import com.ngohoang.along.appcore.data.moviebox.backend.MovieBoxServiceFactory;
+import com.longngohoang.news.appcore.common.schedulers.BaseSchedulerProvider;
+import com.longngohoang.news.appcore.common.schedulers.SchedulerProvider;
+import com.longngohoang.news.appcore.data.moviebox.backend.MovieBoxServiceApi;
+import com.longngohoang.news.appcore.data.moviebox.backend.MovieBoxServiceFactory;
 
 import javax.inject.Singleton;
 

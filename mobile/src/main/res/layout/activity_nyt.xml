@@ -16,20 +16,23 @@
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
         android:paddingTop="0dp"
-        tools:context="com.longngo.moviebox.ui.moviebox.activity.main.MainActivity">
+
+        >
+
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
             <ViewAnimator
                 android:id="@+id/viewAnimator"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inAnimation="@android:anim/fade_in"
-                android:outAnimation="@android:anim/fade_out">
+                android:outAnimation="@android:anim/fade_out"
+                >
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvMovieList"
@@ -38,18 +41,20 @@
                     android:clipToPadding="false"
                     android:paddingLeft="0.5dp"
                     android:paddingRight="0.5dp"
-                    android:paddingTop="1dp">
+                    android:paddingTop="1dp"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                   >
 
                 </android.support.v7.widget.RecyclerView>
 
                 <include layout="@layout/infinite_loading"
 
                     />
-                <include layout="@layout/layout_error_http_400"
+                <include layout="@layout/layout_error"
 
                     />
             </ViewAnimator>
-        </android.support.v4.widget.SwipeRefreshLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
@@ -90,22 +95,25 @@
                         android:clickable="true"
                         android:orientation="vertical"
                         android:padding="24dp"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        >
 
                         <GridLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:columnCount="5"
-                            android:orientation="horizontal">
+                            android:orientation="horizontal"
+                            >
 
                             <TextView
                                 android:layout_columnSpan="2"
                                 android:layout_rowSpan="1"
                                 android:padding="8dp"
-                                android:text="Begin Date" />
+                                android:text="Begin Date"
+                                android:textColor="@color/white"/>
 
-                            <EditText
-                                android:id="@+id/etBeginDate"
+                            <TextView
+                                android:id="@+id/tvBeginDate"
                                 android:layout_columnSpan="3"
                                 android:hint="Begin Date"
                                 android:inputType="date"
@@ -113,30 +121,32 @@
                                 android:singleLine="true"
                                 android:textColorHighlight="@color/white"
                                 android:textColorHint="#7dffffff"
-
                                 android:textSize="14sp"
-                                android:padding="8dp"/>
+                                android:padding="8dp"
+                                android:textColor="@color/white"/>
 
 
                             <TextView
                                 android:layout_columnSpan="2"
                                 android:layout_rowSpan="1"
                                 android:padding="8dp"
-                                android:text="Sort Order" />
+                                android:text="Sort Order"
+                                android:textColor="@color/white"/>
 
                             <Spinner
                                 android:id="@+id/spnSort"
                                 android:layout_columnSpan="3"
                                 android:entries="@array/sort_order_array"
                                 android:padding="8dp"
-
+                                android:popupBackground="@color/colorPrimaryDark"
                                 />
 
                             <TextView
                                 android:layout_columnSpan="2"
                                 android:layout_rowSpan="1"
                                 android:padding="8dp"
-                                android:text="News Desk Values" />
+                                android:text="News Desk Values"
+                                android:textColor="@color/white"/>
 
                             <LinearLayout
                                 android:layout_columnSpan="3"
@@ -155,7 +165,7 @@
                                     android:id="@+id/cbFashion"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Fashion, Style"
+                                    android:text="@string/fashion_style"
                                     android:textColor="@color/white"/>
                                 <CheckBox
                                     android:id="@+id/cbSports"
@@ -174,6 +184,7 @@
                             android:background="@color/tran"
                             android:text="SAVE" />
 
+
                     </LinearLayout>
                 </LinearLayout>
 
@@ -190,7 +201,7 @@
             android:layout_margin="8dp"
             android:src="@android:drawable/ic_menu_share"
             app:fabSize="auto"
-            app:layout_behavior="com.ngohoang.along.appcore.common.ScrollAwareFABBehavior" />
+            app:layout_behavior="com.longngohoang.news.appcore.common.ScrollAwareFABBehavior" />
     </android.support.design.widget.CoordinatorLayout>
 
     <android.support.design.widget.NavigationView
