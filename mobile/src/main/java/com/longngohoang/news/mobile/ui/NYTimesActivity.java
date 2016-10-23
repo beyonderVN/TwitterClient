@@ -1,6 +1,5 @@
 package com.longngohoang.news.mobile.ui;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,15 +19,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewAnimator;
 
-import com.longngohoang.news.appcore.common.DialogUtil;
 import com.longngohoang.news.appcore.common.recyclerviewhelper.InfiniteScrollListener;
 import com.longngohoang.news.appcore.data.model.SearchRequest;
 import com.longngohoang.news.appcore.presentation.presentor.NYTimesPresentationModel;
@@ -36,14 +29,9 @@ import com.longngohoang.news.appcore.presentation.presentor.NYTimesPresenter;
 import com.longngohoang.news.appcore.presentation.presentor.NYTimesView;
 import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
-import com.longngohoang.news.mobile.ui.base.BaseActivity;
 import com.longngohoang.news.mobile.ui.adapter.BaseAdapter;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Locale;
+import com.longngohoang.news.mobile.ui.base.BaseActivity;
+import com.longngohoang.news.mobile.ui.dailog.ChangeOptionDailog;
 
 import butterknife.BindInt;
 import butterknife.BindView;
@@ -51,7 +39,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTimesView, NYTimesPresenter>
-        implements NYTimesView,DatePickerDialog.OnDateSetListener {
+        implements NYTimesView {
     private static final String TAG = "MainActivity";
     private static final int POSITION_CONTENT_VIEW = 0;
     private static final int POSITION_PROGRESS_VIEW = 1;
@@ -66,16 +54,7 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTi
 
     @BindView(R.id.viewAnimator)
     ViewAnimator resultAnimator;
-    @BindView(R.id.tvBeginDate)
-    TextView tvBeginDate;
-    @BindView(R.id.spnSort)
-    Spinner spnSort;
-    @BindView(R.id.cbArts)
-    CheckBox cbArts;
-    @BindView(R.id.cbFashion)
-    CheckBox cbFashion;
-    @BindView(R.id.cbSports)
-    CheckBox cbSports;
+
     @BindView(R.id.appbar)
     AppBarLayout appBarLayout;
     private DrawerLayout mDrawer;
@@ -84,28 +63,13 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTi
     private ActionBarDrawerToggle drawerToggle;
 
     SearchView searchView;
-    View softPanel;
+
     SearchRequest searchRequest;
     BaseAdapter baseAdapter;
 
 
-    @OnClick(R.id.btSave)
-    void saveFilter() {
-        searchRequest.setBeginDate(tvBeginDate.getText().toString());
-        searchRequest.setSort(spnSort.getSelectedItem().toString());
-        searchRequest.getFq().clear();
-        if(cbArts.isChecked())searchRequest.getFq().add(cbArts.getText().toString());
-        if(cbFashion.isChecked())searchRequest.getFq().add(cbFashion.getText().toString());
-        if(cbSports.isChecked())searchRequest.getFq().add(cbSports.getText().toString());
-        softPanel.setVisibility(View.GONE);
-    }
 
 
-    @OnClick(R.id.tvBeginDate)
-    void onTimePickerBtnClick() {
-        DialogUtil.DatePickerFragment newFragment = new DialogUtil.DatePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "datePicker");
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,12 +126,9 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTi
         swipeRefresh.setOnRefreshListener(() -> {
             listRV.setLayoutFrozen(true);
             swipeRefresh.setRefreshing(true);
-            (new Handler()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    Log.d("Swipe", "Refreshing Number");
-                    refresh();
-                }
+            (new Handler()).postDelayed(() -> {
+                Log.d("Swipe", "Refreshing Number");
+                refresh();
             }, 500);
 
         });
@@ -229,7 +190,6 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTi
     protected void onStart() {
         super.onStart();
         searchRequest = presenter.getPresentationModel().getSearchRequest();
-        tvBeginDate.setText(searchRequest.getBeginDate());
         presenter.fetchRepository(columnNum);
 
     }
@@ -305,26 +265,14 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTi
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) menuItem.getActionView();
-        softPanel = findViewById(R.id.softPanel);
-        if (softPanel == null) {
-            Toast.makeText(this, "softPanel == null", Toast.LENGTH_SHORT).show();
-        }
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchRequest.setBeginDate(tvBeginDate.getText().toString());
-                searchRequest.setSort(spnSort.getSelectedItem().toString());
+
                 searchRequest.setQ(query);
-                List<String> fq=new ArrayList<String>();
-                if(cbArts.isChecked())fq.add(cbArts.getText().toString());
-                if(cbFashion.isChecked())fq.add(cbFashion.getText().toString());
-                if(cbSports.isChecked())fq.add(cbSports.getText().toString());
-                searchRequest.setPage(0);
-                searchRequest.setFq(fq);
                 presenter.fetchRepositoryFirst(columnNum);
                 searchView.clearFocus();
-                softPanel.setVisibility(View.GONE);
                 return true;
             }
 
@@ -353,19 +301,28 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTi
 
                 return true;
             case R.id.action_sort:
-                if (softPanel.getVisibility() == View.VISIBLE) {
-                    softPanel.setVisibility(View.GONE);
 
-                } else {
-                    softPanel.setVisibility(View.VISIBLE);
-
-                }
+                ChangeOptionDailog changeOptionDailog = ChangeOptionDailog.newInstance(searchRequest,changeOptionDialogListener);
+                changeOptionDailog.show(getSupportFragmentManager(), "searchRequest");
                 return true;
 
         }
 
         return super.onOptionsItemSelected(item);
     }
+    ChangeOptionDailog.ChangeOptionDialogListener changeOptionDialogListener
+            = new ChangeOptionDailog.ChangeOptionDialogListener() {
+        @Override
+        public void onFinishChangeOption(SearchRequest searchRequest1) {
+            searchRequest = searchRequest1;
+        }
+
+        @Override
+        public void onFinishChangeSearchOption(SearchRequest searchRequest1) {
+            searchRequest = searchRequest1;
+            presenter.fetchRepositoryFirst(columnNum);
+        }
+    };
 
 
     // `onPostCreate` called when activity start-up is complete after `onStart()`
@@ -375,19 +332,5 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTi
         super.onPostCreate(savedInstanceState);
     }
 
-    Calendar myCalendar = Calendar.getInstance();
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        myCalendar.set(Calendar.YEAR, year);
-        myCalendar.set(Calendar.MONTH, month);
-        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-        updateLabel();
-    }
-    private void updateLabel() {
 
-        String myFormat = "dd/MM/yyyy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-        tvBeginDate.setText(sdf.format(myCalendar.getTime()));
-    }
 }

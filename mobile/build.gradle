@@ -5,6 +5,8 @@ apply plugin: 'com.fernandocejas.frodo'
 
 apply plugin: 'me.tatarka.retrolambda'
 android {
+    dataBinding.enabled = true
+
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 

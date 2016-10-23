@@ -93,8 +93,9 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
         return noMore;
     }
 
-    public void reset(int column) {
+    public void refresh(int column) {
         getVisitableList().clear();
+        searchRequest.setPage(0);
         noMore =false;
         loadingMore =false;
         countNonFullSpanItem=0;

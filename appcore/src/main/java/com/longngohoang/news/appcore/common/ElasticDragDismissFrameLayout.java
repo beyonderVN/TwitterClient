@@ -212,7 +212,7 @@ public class ElasticDragDismissFrameLayout extends FrameLayout {
         }
 
         // if we've reversed direction and gone past the settle point then clear the flags to
-        // allow the list to get the scroll events & reset any transforms
+        // allow the list to get the scroll events & refresh any transforms
         if ((draggingDown && totalDrag >= 0)
                 || (draggingUp && totalDrag <= 0)) {
             totalDrag = dragTo = dragFraction = 0;
@@ -270,7 +270,7 @@ public class ElasticDragDismissFrameLayout extends FrameLayout {
                 activity.getWindow().setStatusBarColor(ColorUtils.modifyAlpha(activity.getWindow()
                         .getStatusBarColor(), (int) ((1f - rawOffset) * statusBarAlpha)));
             } else if (elasticOffsetPixels == 0) {
-                // reset
+                // refresh
                 activity.getWindow().setStatusBarColor(ColorUtils.modifyAlpha(
                         activity.getWindow().getStatusBarColor(), statusBarAlpha));
                 activity.getWindow().setNavigationBarColor(ColorUtils.modifyAlpha(

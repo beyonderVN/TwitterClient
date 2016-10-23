@@ -1,0 +1,137 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="searchRequest" type="com.longngohoang.news.appcore.data.model.SearchRequest"/>
+    </data>
+    <LinearLayout
+        android:id="@+id/filterPanel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryDark"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:text="Option"
+            android:textColor="@color/white"
+            android:textSize="@dimen/tv_textsize_large" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/gray" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_columnSpan="2"
+                android:layout_rowSpan="1"
+                android:padding="8dp"
+                android:text="Begin Date"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvBeginDate"
+                android:layout_columnSpan="3"
+                android:hint="Begin Date"
+                android:inputType="date"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHighlight="@color/white"
+                android:textColorHint="#7dffffff"
+                android:textSize="14sp"
+                android:text="@{searchRequest.beginDate}"/>
+
+
+            <TextView
+                android:layout_columnSpan="2"
+                android:layout_rowSpan="1"
+                android:padding="8dp"
+                android:text="Sort Order"
+                android:textColor="@color/white" />
+
+            <Spinner
+                android:id="@+id/spnSort"
+                android:layout_columnSpan="3"
+                android:entries="@array/sort_order_array"
+                android:padding="8dp"
+                android:popupBackground="@color/colorPrimaryDark"
+
+                />
+
+            <TextView
+                android:layout_columnSpan="2"
+                android:layout_rowSpan="1"
+                android:padding="8dp"
+                android:text="News Desk Values"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_column="1"
+                android:layout_columnSpan="4"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <CheckBox
+                    android:id="@+id/cbArts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{searchRequest.getNameFq(0)}"
+                    android:textColor="@color/white"
+                    android:checked="@{searchRequest.getCheckedFq(0)}"/>
+
+                <CheckBox
+                    android:id="@+id/cbFashion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{searchRequest.getNameFq(1)}"
+                    android:textColor="@color/white"
+                    android:checked="@{searchRequest.getCheckedFq(1)}"/>
+
+                <CheckBox
+                    android:id="@+id/cbSports"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{searchRequest.getNameFq(2)}"
+                    android:textColor="@color/white"
+                    android:checked="@{searchRequest.getCheckedFq(2)}" />
+            </LinearLayout>
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end">
+            <Button
+                android:id="@+id/btSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@color/tran"
+                android:text="SAVE" />
+            <Button
+                android:id="@+id/btSaveSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:background="@color/tran"
+                android:text="SAVE &amp; SEARCH" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</layout>

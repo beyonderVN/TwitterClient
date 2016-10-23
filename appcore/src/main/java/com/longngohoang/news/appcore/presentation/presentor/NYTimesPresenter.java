@@ -52,7 +52,7 @@ public class NYTimesPresenter extends SimpleMVPPresenter<NYTimesView,NYTimesPres
     public void fetchRepositoryFirst(int column){
         if(isThereInternetConnection()){
             showProcess();
-            getPresentationModel().reset(column);
+            getPresentationModel().refresh(column);
             searchArticleUseCase.execute(new FirstArticaleSubscriber(),getPresentationModel().getSearchRequest());
         }else{
             showError(ErrorMessageFactory.create(context,new NetworkConnectionException()));

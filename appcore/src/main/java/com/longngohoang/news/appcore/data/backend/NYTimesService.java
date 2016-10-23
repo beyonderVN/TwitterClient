@@ -37,7 +37,7 @@ public class NYTimesService {
         return NYTimesServiceApi.getNews(
                 searchRequest.getQ(),
                 tranDateForREquest(searchRequest.getBeginDate()),
-                searchRequest.getSort(),
+                searchRequest.getSortList().get(searchRequest.getCurrentSort()),
                 searchRequest.getStringFq(),
                 searchRequest.getPage())
                 .map(new Func1<ResponseData, List<Doc>>() {
@@ -54,10 +54,10 @@ public class NYTimesService {
         }
 
         try {
-            String start_dt = "dd/MM/yyyy";
-            DateFormat formatter = new SimpleDateFormat("yyyy-MM-DD");
+
+            DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
             Date date = null;
-            date = (Date)formatter.parse(start_dt);
+            date = (Date)formatter.parse(s);
             SimpleDateFormat newFormat = new SimpleDateFormat("yyyyMMdd");
             String finalString = newFormat.format(date);
             return finalString;

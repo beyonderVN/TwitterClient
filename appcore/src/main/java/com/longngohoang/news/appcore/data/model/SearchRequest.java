@@ -29,10 +29,29 @@ public class SearchRequest implements Serializable {
     }
 
     String beginDate;
-    String sort;
-    List<String> fq = new ArrayList<>();
+    int currentSort=0;
+
+    public List<String> getSortList() {
+        return sortList;
+    }
+
+    public void setSortList(List<String> sortList) {
+        this.sortList = sortList;
+    }
+
+    List<String> sortList = new ArrayList<>();
+
+    List<Desk> fq = new ArrayList<>();
 
     public SearchRequest() {
+        sortList.add("Oldest");
+        sortList.add("Newest");
+
+        fq.add(new Desk(0,"Arts",true));
+        fq.add(new Desk(1,"Fashion & Style",false));
+        fq.add(new Desk(2,"Sports",true));
+
+        currentSort =1;
     }
     public String getBeginDate() {
         return beginDate;
@@ -46,15 +65,15 @@ public class SearchRequest implements Serializable {
         this.beginDate = beginDate;
     }
 
-    public String getSort() {
-        return sort;
+    public int getCurrentSort() {
+        return currentSort;
     }
 
-    public void setSort(String sort) {
-        this.sort = sort;
+    public void setCurrentSort(int currentSort) {
+        this.currentSort = currentSort;
     }
 
-    public List<String> getFq() {
+    public List<Desk> getFq() {
         return fq;
     }
     public String getStringFq() {
@@ -62,20 +81,28 @@ public class SearchRequest implements Serializable {
             return null;
         }
         String fqString = "news_desk:(";
-        for (int i = 0;i<fq.size();i++
-                ) {
-            fqString = fqString+"\""+fq.get(i)+"\"";
-            if(i<fq.size()-1){
+        int count =0;
+        for (int i = 0;i<fq.size();i++) {
+            if(fq.get(i).isChecked()){
+                fqString = fqString+"\""+fq.get(i).getDes()+"\"";
                 fqString=fqString+"%20";
-            }else {
-                fqString=fqString+")";
+                count++;
             }
+
         }
-        return fqString;
+
+        fqString=fqString+")";
+        return count==0?null:fqString;
     }
 
-    public void setFq(List<String> fq) {
+    public void setFq(List<Desk> fq) {
 
         this.fq = fq;
+    }
+    public boolean getCheckedFq(int position){
+        return fq.get(position).isChecked();
+    }
+    public String getNameFq(int position){
+        return fq.get(position).getDes();
     }
 }
