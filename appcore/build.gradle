@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'android-apt'
 apply from: '../quality_tools/findbugs.gradle'
 apply plugin: 'com.fernandocejas.frodo'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'io.fabric'
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -33,6 +35,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
 }
 
 dependencies {
@@ -68,4 +75,7 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     compile 'com.google.android.support:wearable:2.0.0-alpha2'
+    compile('com.twitter.sdk.android:twitter:2.1.1@aar') {
+        transitive = true;
+    }
 }
