@@ -6,14 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.longngohoang.news.appcore.data.backend.twitter.models.User;
 import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
+import com.longngohoang.news.mobile.ui.browser.MainActivity;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
+import com.twitter.sdk.android.core.models.User;
 
 import rx.functions.Action1;
 
@@ -31,12 +32,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.d(TAG, "success: ");
-                MainApplication.getTwitterService().getMyDetails().subscribe(new Action1<User>() {
+                MainApplication.getMainComponent().twitterService().getMyDetails().subscribe(new Action1<User>() {
                     @Override
                     public void call(User user) {
-                        Log.d(TAG, "call: "+user.getName());
+                        Log.d(TAG, "call: "+user.name);
                     }
                 });
+                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                finishAfterTransition();
             }
 
             @Override

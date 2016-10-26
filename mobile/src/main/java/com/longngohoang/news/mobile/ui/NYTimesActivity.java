@@ -27,7 +27,6 @@ import com.longngohoang.news.appcore.data.model.SearchRequest;
 import com.longngohoang.news.appcore.presentation.presentor.NYTimesPresentationModel;
 import com.longngohoang.news.appcore.presentation.presentor.NYTimesPresenter;
 import com.longngohoang.news.appcore.presentation.presentor.NYTimesView;
-import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
 import com.longngohoang.news.mobile.ui.adapter.BaseAdapter;
 import com.longngohoang.news.mobile.ui.base.BaseActivity;
@@ -196,7 +195,7 @@ public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTi
 
     @Override
     protected void performFieldInjection() {
-        MainApplication.getMainComponent().inject(this);
+//        MainApplication.getMainComponent().inject(this);
     }
 
     @NonNull

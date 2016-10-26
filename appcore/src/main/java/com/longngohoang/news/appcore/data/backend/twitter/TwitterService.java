@@ -1,7 +1,7 @@
 package com.longngohoang.news.appcore.data.backend.twitter;
 
 
-import com.longngohoang.news.appcore.data.backend.twitter.models.User;
+import com.twitter.sdk.android.core.models.User;
 
 import rx.Observable;
 

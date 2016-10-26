@@ -6,11 +6,14 @@ import com.longngohoang.news.appcore.common.schedulers.BaseSchedulerProvider;
 import com.longngohoang.news.appcore.common.schedulers.SchedulerProvider;
 import com.longngohoang.news.appcore.data.backend.NYTimesServiceApi;
 import com.longngohoang.news.appcore.data.backend.NYTimesServiceFactory;
+import com.longngohoang.news.appcore.data.backend.twitter.TwitterService;
+import com.longngohoang.news.appcore.data.backend.twitter.TwitterServiceImpl;
 import com.longngohoang.news.appcore.data.source.ArticleRepositoryImpl;
 import com.longngohoang.news.appcore.interactor.ArticleRepository;
 import com.longngohoang.news.appcore.interactor.SearchArticleUseCase;
 import com.longngohoang.news.appcore.interactor.UseCase;
 import com.longngohoang.news.mobile.MainApplication;
+import com.twitter.sdk.android.Twitter;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -44,6 +47,12 @@ public class MainModule {
     @Singleton
     BaseSchedulerProvider provideSchedulerProvider(SchedulerProvider schedulerProvider) {
         return schedulerProvider;
+    }
+
+    @Provides
+    @Singleton
+    TwitterService provideTwitterService() {
+        return new TwitterServiceImpl(Twitter.getSessionManager().getActiveSession());
     }
 
     @Provides @Singleton
