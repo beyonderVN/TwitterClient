@@ -28,33 +28,17 @@
                 <!--app:layout_collapseMode="parallax"-->
                 <!--app:layout_collapseParallaxMultiplier="1.0"-->
                 <!--android:adjustViewBounds="true" />-->
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="top"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.5"
+                app:layout_collapseParallaxMultiplier="0.7"
+                android:orientation="vertical"
                 >
+                <include layout="@layout/layout_user_profile"/>
 
-                <com.longngohoang.news.appcore.common.viewpager.ScrollerViewPager
-                    android:id="@+id/view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="350dp"
-                    android:layout_gravity="fill_horizontal"
-                    />
-
-                <com.longngohoang.news.appcore.common.viewpager.InkPageIndicator
-                    android:id="@+id/indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center"
-                    android:padding="16dp"
-                    app:currentPageIndicatorColor="@color/blue_alpha"
-                    app:pageIndicatorColor="@color/gray" />
-
-            </RelativeLayout>
+            </LinearLayout>
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"

@@ -18,14 +18,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
-import com.longngohoang.news.appcore.common.viewpager.InkPageIndicator;
-import com.longngohoang.news.appcore.common.viewpager.ModelPagerAdapter;
-import com.longngohoang.news.appcore.common.viewpager.PagerModelManager;
-import com.longngohoang.news.appcore.common.viewpager.ScrollerViewPager;
 import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
 import com.longngohoang.news.mobile.ui.base.BaseActivity;
@@ -55,8 +53,7 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
     CollapsingToolbarLayout mCollapsingToolbar;
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
-    @BindView(R.id.view_pager)
-    ScrollerViewPager viewPager;
+
 //    AllFragment fragmentMain;
 //    AllFragment2 fragmentMain2;
 //    CatalogueFragment fragmentSub;
@@ -78,30 +75,9 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
 
         setupViewPage();
 
-        PagerModelManager manager = new PagerModelManager();
-        manager.addCommonFragment(GuideFragment.class, getBgRes(), getTitles());
-        ModelPagerAdapter adapter = new ModelPagerAdapter(getSupportFragmentManager(), manager);
-        viewPager.setAdapter(adapter);
-        viewPager.fixScrollSpeed();
 
-
-        InkPageIndicator springIndicator = (InkPageIndicator) findViewById(R.id.indicator);
-        // just set viewPager
-        springIndicator.setViewPager(viewPager);
-    }
-    private List<String> getTitles(){
-        ArrayList<String> list = new ArrayList<String>();
-        return list;
     }
 
-    private List<String> getBgRes(){
-        ArrayList<String> list = new ArrayList<>();
-        list.add("https://www.dreamhost.com/blog/wp-content/uploads/2015/10/DHC_blog-image-01.jpg");
-        list.add("https://www.dreamhost.com/blog/wp-content/uploads/2015/10/DHC_blog-image-01.jpg");
-        list.add("https://www.dreamhost.com/blog/wp-content/uploads/2015/10/DHC_blog-image-01.jpg");
-        list.add("https://www.dreamhost.com/blog/wp-content/uploads/2015/10/DHC_blog-image-01.jpg");
-        return list;
-    }
 
     private void setupFab() {
 
@@ -132,13 +108,16 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         drawer.addDrawerListener(toggle);
         getSupportActionBar().setTitle("");
         toggle.syncState();
+        frameLayout = (FrameLayout) findViewById(R.id.ivAvatar);
 
         mAppBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
             boolean showTitle = (mCollapsingToolbar.getHeight() + verticalOffset) <= (mToolbar.getHeight()*3) ;
 //            mToolbar.setTitle(showTitle?"Twitter":"");
+            Log.d(TAG, "verticalOffset: "+verticalOffset);
+            frameLayout.setPadding(-verticalOffset/10,-verticalOffset/10,-verticalOffset/10,-verticalOffset/10);
         });
     }
-
+    FrameLayout frameLayout;
     private void setupViewPage() {
         SimpleViewPagerAdapter mAdapter = new SimpleViewPagerAdapter(getSupportFragmentManager());
 
