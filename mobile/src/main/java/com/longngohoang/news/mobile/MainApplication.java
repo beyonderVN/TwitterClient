@@ -27,7 +27,10 @@ public class MainApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
         mContext = getApplicationContext();
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
         setupGraph();
     }
 
@@ -35,8 +38,7 @@ public class MainApplication extends Application {
         applicationComponent = DaggerMainComponent.builder()
                 .mainModule(new MainModule(this))
                 .build();
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+
 
     }
 

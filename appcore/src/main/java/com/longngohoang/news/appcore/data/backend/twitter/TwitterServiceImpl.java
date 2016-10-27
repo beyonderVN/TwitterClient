@@ -8,7 +8,10 @@ import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterApiClient;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.core.models.User;
+
+import java.util.List;
 
 import javax.inject.Singleton;
 
@@ -35,6 +38,7 @@ public class TwitterServiceImpl extends TwitterApiClient implements TwitterServi
                     public void success(Result<User> result) {
                         Log.i(TAG, "Got your details, pal!");
                         subscriber.onNext(result.data);
+                        Log.i(TAG, "result.data"+result.data);
                     }
 
                     @Override
@@ -46,6 +50,26 @@ public class TwitterServiceImpl extends TwitterApiClient implements TwitterServi
 
                 TwitterServiceImpl.this.getService(UserService.class).show(Twitter.getSessionManager().getActiveSession().getUserId()).enqueue(callback);
             }
+        });
+    }
+
+    public Observable<List<Tweet>> getHomeTimeLine() {
+        return Observable.create(subscriber -> {
+            Callback<List<Tweet>> callback = new Callback<List<Tweet>>() {
+                @Override
+                public void success(Result<List<Tweet>> result) {
+                    Log.i(TAG, "Got the tweets, buddy!");
+                    subscriber.onNext(result.data);
+                }
+
+                @Override
+                public void failure(TwitterException e) {
+                    Log.e(TAG, e.getMessage(), e);
+                    subscriber.onError(e);
+                }
+            };
+
+            getStatusesService().homeTimeline(null, null, null, null, null, null, null).enqueue(callback);
         });
     }
 

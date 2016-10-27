@@ -9,13 +9,6 @@ import rx.Observable;
 
 public interface NYTimesServiceApi {
 
-    /**
-     * Retrieve a list of competitions
-     */
-
-
-//    @GET("articlesearch.json?begin_date=20160112&sort=oldest&fq=news_desk:(\"Education\"%20\"Health\")")
-//    Observable<ResponseData> getNews();
     @GET("articlesearch.json")
     Observable<ResponseData> getNews(@Query("q") String q,
                                      @Query("begin_date") String beginDate,

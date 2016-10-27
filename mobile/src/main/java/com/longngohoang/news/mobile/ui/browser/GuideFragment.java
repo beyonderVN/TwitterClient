@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.longngohoang.news.mobile.R;
-import com.squareup.picasso.Picasso;
 
 
 /**
@@ -52,7 +51,7 @@ public class GuideFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        imageView = (ImageView) getView().findViewById(R.id.image);
-        Picasso.with(getContext()).load(bgRes).into(imageView);
+//        imageView = (ImageView) getView().findViewById(R.id.ivAvatar);
+//        Picasso.with(getContext()).load(bgRes).into(imageView);
     }
 }

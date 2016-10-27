@@ -8,7 +8,8 @@ import android.widget.Toast;
 
 import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
-import com.longngohoang.news.mobile.ui.browser.MainActivity;
+import com.longngohoang.news.mobile.ui.browser.BrowserActivity;
+import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
@@ -38,13 +40,14 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d(TAG, "call: "+user.name);
                     }
                 });
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                startActivity(new Intent(LoginActivity.this, BrowserActivity.class));
                 finishAfterTransition();
             }
 
             @Override
             public void failure(TwitterException exception) {
                 Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                Twitter.getSessionManager();
             }
         });
     }

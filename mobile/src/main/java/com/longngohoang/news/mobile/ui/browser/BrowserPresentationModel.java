@@ -8,9 +8,9 @@ import javax.inject.Inject;
  * Created by Long on 7/8/2016.
  */
 
-public class MainPresentationModel implements Serializable {
+public class BrowserPresentationModel implements Serializable {
     @Inject
-    public MainPresentationModel() {
+    public BrowserPresentationModel() {
 
     }
 }

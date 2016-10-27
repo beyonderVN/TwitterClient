@@ -39,9 +39,9 @@ import butterknife.ButterKnife;
 import static com.longngohoang.news.mobile.R.id.toolbar;
 
 
-public class MainActivity extends BaseActivity<MainPresentationModel, MainView, MainPresenter>
-        implements NavigationView.OnNavigationItemSelectedListener,MainView {
-    private static final String TAG = "MainActivity";
+public class BrowserActivity extends BaseActivity<BrowserPresentationModel, BrowserView, BrowserPresenter>
+        implements NavigationView.OnNavigationItemSelectedListener,BrowserView {
+    private static final String TAG = "BrowserActivity";
     //bind
     @BindView(R.id.appbar)
     AppBarLayout mAppBar;
@@ -96,10 +96,10 @@ public class MainActivity extends BaseActivity<MainPresentationModel, MainView, 
 
     private List<String> getBgRes(){
         ArrayList<String> list = new ArrayList<>();
-        list.add("https://pp.vk.me/c4247/u120721978/a_5229ede7.jpg");
-        list.add("https://pp.vk.me/c4247/u120721978/a_5229ede7.jpg");
-        list.add("https://pp.vk.me/c4247/u120721978/a_5229ede7.jpg");
-        list.add("https://pp.vk.me/c4247/u120721978/a_5229ede7.jpg");
+        list.add("https://www.dreamhost.com/blog/wp-content/uploads/2015/10/DHC_blog-image-01.jpg");
+        list.add("https://www.dreamhost.com/blog/wp-content/uploads/2015/10/DHC_blog-image-01.jpg");
+        list.add("https://www.dreamhost.com/blog/wp-content/uploads/2015/10/DHC_blog-image-01.jpg");
+        list.add("https://www.dreamhost.com/blog/wp-content/uploads/2015/10/DHC_blog-image-01.jpg");
         return list;
     }
 
@@ -130,16 +130,12 @@ public class MainActivity extends BaseActivity<MainPresentationModel, MainView, 
         toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-
+        getSupportActionBar().setTitle("");
         toggle.syncState();
 
-        mAppBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                boolean showTitle = (mCollapsingToolbar.getHeight() + verticalOffset) <= (mToolbar.getHeight()*3) ;
-                mToolbar.setTitle(showTitle?"Twitter":"");
-                mToolbar.setOverflowIcon(getDrawable(R.drawable.ic_3d_rotation_black_18dp));
-            }
+        mAppBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
+            boolean showTitle = (mCollapsingToolbar.getHeight() + verticalOffset) <= (mToolbar.getHeight()*3) ;
+//            mToolbar.setTitle(showTitle?"Twitter":"");
         });
     }
 
@@ -264,11 +260,11 @@ public class MainActivity extends BaseActivity<MainPresentationModel, MainView, 
 
     @NonNull
     @Override
-    protected MainPresentationModel createPresentationModel() {
-        return new MainPresentationModel();
+    protected BrowserPresentationModel createPresentationModel() {
+        return new BrowserPresentationModel();
     }
 
-    //MainView
+    //BrowserView
     @Override
     public void showProgress() {
 

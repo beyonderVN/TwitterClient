@@ -7,7 +7,7 @@ import com.longngohoang.news.appcore.common.coremvp.MVPView;
  * Created by Long on 7/8/2016.
  */
 
-public interface MainView extends MVPView {
+public interface BrowserView extends MVPView {
     void showProgress();
 
     void showContent();

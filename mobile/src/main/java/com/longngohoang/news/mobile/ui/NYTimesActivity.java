@@ -39,7 +39,7 @@ import butterknife.OnClick;
 
 public class NYTimesActivity extends BaseActivity<NYTimesPresentationModel, NYTimesView, NYTimesPresenter>
         implements NYTimesView {
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "BrowserActivity";
     private static final int POSITION_CONTENT_VIEW = 0;
     private static final int POSITION_PROGRESS_VIEW = 1;
     private static final int POSITION_ERROR = 2;

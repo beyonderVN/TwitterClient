@@ -9,8 +9,12 @@ import com.longngohoang.news.appcore.data.backend.NYTimesServiceFactory;
 import com.longngohoang.news.appcore.data.backend.twitter.TwitterService;
 import com.longngohoang.news.appcore.data.backend.twitter.TwitterServiceImpl;
 import com.longngohoang.news.appcore.data.source.ArticleRepositoryImpl;
+import com.longngohoang.news.appcore.data.source.TweetRepositoryImpl;
+import com.longngohoang.news.appcore.data.source.remote.TweetRemoteDataSource;
 import com.longngohoang.news.appcore.interactor.ArticleRepository;
+import com.longngohoang.news.appcore.interactor.GetHomeTimeLine;
 import com.longngohoang.news.appcore.interactor.SearchArticleUseCase;
+import com.longngohoang.news.appcore.interactor.TweetRepository;
 import com.longngohoang.news.appcore.interactor.UseCase;
 import com.longngohoang.news.mobile.MainApplication;
 import com.twitter.sdk.android.Twitter;
@@ -59,11 +63,20 @@ public class MainModule {
     ArticleRepository provideUserRepository(ArticleRepositoryImpl articleRepository) {
         return articleRepository;
     }
+    @Provides @Singleton
+    TweetRepository provideTweetRepository(TweetRemoteDataSource tweetRepository) {
+        return new TweetRepositoryImpl(tweetRepository);
+    }
 
     @Provides @Named("articaleList")
     UseCase provideSearchArticleUseCase(
             SearchArticleUseCase searchArticleUseCase) {
         return searchArticleUseCase;
+    }
+    @Provides @Named("getHomeTimeLine")
+    UseCase provideGetHomeTimeLine(
+            GetHomeTimeLine getHomeTimeLine) {
+        return getHomeTimeLine;
     }
 
 

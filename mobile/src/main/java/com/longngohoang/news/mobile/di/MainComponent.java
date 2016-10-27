@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.longngohoang.news.appcore.data.backend.NYTimesService;
 import com.longngohoang.news.appcore.data.backend.twitter.TwitterService;
-import com.longngohoang.news.mobile.ui.browser.MainActivity;
+import com.longngohoang.news.mobile.ui.browser.BrowserActivity;
 
 import javax.inject.Singleton;
 
@@ -19,5 +19,5 @@ public interface MainComponent {
     Context context();
     TwitterService twitterService();
     NYTimesService nYTimesService();
-    void inject(MainActivity mainActivity);
+    void inject(BrowserActivity mainActivity);
 }
