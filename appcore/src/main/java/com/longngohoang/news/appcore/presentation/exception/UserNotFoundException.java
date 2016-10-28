@@ -16,7 +16,7 @@
 package com.longngohoang.news.appcore.presentation.exception;
 
 /**
- * Exception throw by the application when a User search can't return a valid result.
+ * Exception throw by the application when a UserDM search can't return a valid result.
  */
 public class UserNotFoundException extends Exception {
 

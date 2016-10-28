@@ -9,8 +9,7 @@ public class NoMoreItemVM extends BaseVM {
 
 
     @Override
-    public int getVMType(NYTimesMViewTypeFactory vmTypeFactory) {
+    public int getVMType(TwitterViewTypeFactory vmTypeFactory) {
         return vmTypeFactory.getType(this);
     }
-
 }

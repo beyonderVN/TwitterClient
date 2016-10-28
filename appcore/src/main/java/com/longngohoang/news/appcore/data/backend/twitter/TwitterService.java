@@ -11,7 +11,7 @@ import rx.Observable;
 public interface TwitterService {
 
 
-    Observable<User> getMyDetails();
+    Observable<User> getUserProfile();
     Observable<List<Tweet>> getHomeTimeLine();
 
 }

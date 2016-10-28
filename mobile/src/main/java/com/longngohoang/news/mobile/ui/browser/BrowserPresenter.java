@@ -5,11 +5,9 @@ import android.util.Log;
 
 import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 import com.longngohoang.news.appcore.common.coremvp.SimpleMVPPresenter;
+import com.longngohoang.news.appcore.data.model.UserDM;
 import com.longngohoang.news.appcore.interactor.DefaultSubscriber;
 import com.longngohoang.news.appcore.interactor.UseCase;
-import com.twitter.sdk.android.core.models.Tweet;
-
-import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -20,20 +18,20 @@ import javax.inject.Named;
 
 public class BrowserPresenter extends SimpleMVPPresenter<BrowserView, BrowserPresentationModel> {
     private static final String TAG = "BrowserPresenter";
-    private final UseCase getHomeTimeLine;
+    private final UseCase getUserProfileUseCase;
 
     @Inject
-    BrowserPresenter(@Named("getHomeTimeLine")UseCase getHomeTimeLine) {
-        this.getHomeTimeLine = getHomeTimeLine;
+    BrowserPresenter(@Named("getUserProfile")UseCase getUserProfileUseCase) {
+        this.getUserProfileUseCase = getUserProfileUseCase;
     }
 
     @Override
     public void attachView(BrowserView mvpView, BrowserPresentationModel presentationModel) {
         super.attachView(mvpView, presentationModel);
-        getHomeTimeLine.execute(new getHomeTimeline());
+        getUserProfileUseCase.execute(new getHomeTimeline());
     }
     @RxLogSubscriber
-    private final class getHomeTimeline extends DefaultSubscriber<List<Tweet>> {
+    private final class getHomeTimeline extends DefaultSubscriber<UserDM> {
 
         @Override public void onCompleted() {
             Log.d(TAG, "onCompleted: ");
@@ -44,16 +42,8 @@ public class BrowserPresenter extends SimpleMVPPresenter<BrowserView, BrowserPre
 
         }
 
-        @Override public void onNext(List<Tweet> docs) {
-            Log.d(TAG, "onNext: "+docs.size());
-            if (!docs.isEmpty()) {
-                Log.d(TAG, "onSuccess: "+docs.size());
-
-            } else {
-                Log.d(TAG, "onSuccess: is empty");
-
-            }
-
+        @Override public void onNext(UserDM user) {
+            Log.d(TAG, "onNext: "+user.name);
         }
     }
 

@@ -4,10 +4,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 
-import com.longngohoang.news.appcore.data.model.Doc;
+import com.fernandocejas.frodo.annotation.RxLogObservable;
+import com.longngohoang.news.appcore.data.model.TweetDM;
 import com.longngohoang.news.appcore.interactor.TweetRepository;
 import com.twitter.sdk.android.core.models.Tweet;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +32,7 @@ public class TweetRepositoryImpl implements TweetRepository {
      */
     @VisibleForTesting
     @Nullable
-    Map<Integer, Doc> mCachedTweets;
+    Map<Integer, Tweet> mCachedTweets;
 
     /**
      * Marks the cache as invalid, to force an update the next time data is requested. This variable
@@ -45,9 +47,17 @@ public class TweetRepositoryImpl implements TweetRepository {
         tweetDataSource = tweetRemoteDataSource;
 
     }
-
+    @RxLogObservable
     @Override
-    public Observable<List<Tweet>> getHomeTimeLine() {
-        return tweetDataSource.getHomeTimeLine();
+    public Observable<List<TweetDM>> getHomeTimeLine() {
+        return tweetDataSource.getHomeTimeLine()
+                .map(tweets -> {
+                    List<TweetDM> tweetDMs = new ArrayList<>();
+                    for (Tweet tweet:tweets
+                         ) {
+                        tweetDMs.add(new TweetDM(tweet));
+                    }
+                    return tweetDMs;
+                });
     }
 }

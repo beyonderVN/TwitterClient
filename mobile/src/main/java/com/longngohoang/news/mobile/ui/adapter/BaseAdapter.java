@@ -1,6 +1,7 @@
 package com.longngohoang.news.mobile.ui.adapter;
 
 import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,16 +21,26 @@ import java.util.List;
 
 public class BaseAdapter extends RecyclerView.Adapter<BaseViewHolder<BaseVM>> {
 
+    private Context context;
     public HolderFactory holderFactory = new HolderFactoryImpl();
     private List<BaseVM> list;
 
     BasePresentationModel basePresentationModel;
     Activity activity;
+    public BaseAdapter(List<BaseVM> list) {
 
+        this.list = list;
+
+    }
     public BaseAdapter(Activity activity, BasePresentationModel basePresentationModel) {
         this.basePresentationModel = basePresentationModel;
         this.list = basePresentationModel.getVisitableList();
         this.activity = activity;
+    }
+    public BaseAdapter(Context context, BasePresentationModel basePresentationModel) {
+        this.basePresentationModel = basePresentationModel;
+        this.list = basePresentationModel.getVisitableList();
+        this.context = context;
     }
 
     @Override

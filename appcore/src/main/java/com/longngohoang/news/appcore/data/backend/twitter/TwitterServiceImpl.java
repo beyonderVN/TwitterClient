@@ -2,6 +2,7 @@ package com.longngohoang.news.appcore.data.backend.twitter;
 
 import android.util.Log;
 
+import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
@@ -28,8 +29,8 @@ public class TwitterServiceImpl extends TwitterApiClient implements TwitterServi
         super(session);
     }
 
-
-    public Observable<User > getMyDetails() {
+    @RxLogObservable
+    public Observable<User > getUserProfile() {
         return Observable.create(new Observable.OnSubscribe<User>() {
             @Override
             public void call(Subscriber<? super User> subscriber) {
@@ -52,7 +53,7 @@ public class TwitterServiceImpl extends TwitterApiClient implements TwitterServi
             }
         });
     }
-
+    @RxLogObservable
     public Observable<List<Tweet>> getHomeTimeLine() {
         return Observable.create(subscriber -> {
             Callback<List<Tweet>> callback = new Callback<List<Tweet>>() {

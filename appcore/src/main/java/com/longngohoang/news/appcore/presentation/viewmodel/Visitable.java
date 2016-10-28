@@ -5,5 +5,5 @@ package com.longngohoang.news.appcore.presentation.viewmodel;
  */
 
 public interface Visitable {
-    int getVMType (NYTimesMViewTypeFactory vmTypeFactory);
+    int getVMType (TwitterViewTypeFactory vmTypeFactory);
 }

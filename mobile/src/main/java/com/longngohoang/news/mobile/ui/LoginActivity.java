@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.d(TAG, "success: ");
-                MainApplication.getMainComponent().twitterService().getMyDetails().subscribe(new Action1<User>() {
+                MainApplication.getMainComponent().twitterService().getUserProfile().subscribe(new Action1<User>() {
                     @Override
                     public void call(User user) {
                         Log.d(TAG, "call: "+user.name);

@@ -4,18 +4,17 @@ import android.content.Context;
 
 import com.longngohoang.news.appcore.common.schedulers.BaseSchedulerProvider;
 import com.longngohoang.news.appcore.common.schedulers.SchedulerProvider;
-import com.longngohoang.news.appcore.data.backend.NYTimesServiceApi;
-import com.longngohoang.news.appcore.data.backend.NYTimesServiceFactory;
 import com.longngohoang.news.appcore.data.backend.twitter.TwitterService;
 import com.longngohoang.news.appcore.data.backend.twitter.TwitterServiceImpl;
-import com.longngohoang.news.appcore.data.source.ArticleRepositoryImpl;
 import com.longngohoang.news.appcore.data.source.TweetRepositoryImpl;
+import com.longngohoang.news.appcore.data.source.UserRepositoryImpl;
 import com.longngohoang.news.appcore.data.source.remote.TweetRemoteDataSource;
-import com.longngohoang.news.appcore.interactor.ArticleRepository;
+import com.longngohoang.news.appcore.data.source.remote.UserRemoteDataSource;
 import com.longngohoang.news.appcore.interactor.GetHomeTimeLine;
-import com.longngohoang.news.appcore.interactor.SearchArticleUseCase;
+import com.longngohoang.news.appcore.interactor.GetUserProfileUseCase;
 import com.longngohoang.news.appcore.interactor.TweetRepository;
 import com.longngohoang.news.appcore.interactor.UseCase;
+import com.longngohoang.news.appcore.interactor.UserRepository;
 import com.longngohoang.news.mobile.MainApplication;
 import com.twitter.sdk.android.Twitter;
 
@@ -43,40 +42,35 @@ public class MainModule {
 
     @Provides
     @Singleton
-    NYTimesServiceApi provideNYTimesServiceApi() {
-        return NYTimesServiceFactory.makeService();
-    }
-
-    @Provides
-    @Singleton
     BaseSchedulerProvider provideSchedulerProvider(SchedulerProvider schedulerProvider) {
         return schedulerProvider;
     }
-
+//  provide BackendServices
     @Provides
     @Singleton
     TwitterService provideTwitterService() {
         return new TwitterServiceImpl(Twitter.getSessionManager().getActiveSession());
     }
-
-    @Provides @Singleton
-    ArticleRepository provideUserRepository(ArticleRepositoryImpl articleRepository) {
-        return articleRepository;
-    }
+//  provide Repositories
     @Provides @Singleton
     TweetRepository provideTweetRepository(TweetRemoteDataSource tweetRepository) {
         return new TweetRepositoryImpl(tweetRepository);
     }
-
-    @Provides @Named("articaleList")
-    UseCase provideSearchArticleUseCase(
-            SearchArticleUseCase searchArticleUseCase) {
-        return searchArticleUseCase;
+    @Provides @Singleton
+    UserRepository provideUserRepository(UserRemoteDataSource userRemoteDataSource) {
+        return new UserRepositoryImpl(userRemoteDataSource);
     }
+//  Provice UseCases
     @Provides @Named("getHomeTimeLine")
     UseCase provideGetHomeTimeLine(
             GetHomeTimeLine getHomeTimeLine) {
         return getHomeTimeLine;
+    }
+
+    @Provides @Named("getUserProfile")
+    UseCase provideGetUserProfileUseCase(
+            GetUserProfileUseCase getUserProfileUseCase) {
+        return getUserProfileUseCase;
     }
 
 

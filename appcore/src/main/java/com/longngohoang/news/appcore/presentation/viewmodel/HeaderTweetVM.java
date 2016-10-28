@@ -1,12 +1,15 @@
 package com.longngohoang.news.appcore.presentation.viewmodel;
 
-
 /**
- * Created by Long on 10/5/2016.
+ * Created by Long on 10/28/2016.
  */
+public class HeaderTweetVM extends BaseVM {
 
-public class LoadingMoreVM extends BaseVM {
 
+
+    public HeaderTweetVM() {
+
+    }
 
     @Override
     public int getVMType(TwitterViewTypeFactory vmTypeFactory) {

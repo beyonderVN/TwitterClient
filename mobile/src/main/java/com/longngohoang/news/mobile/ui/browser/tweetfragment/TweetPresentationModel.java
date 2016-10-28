@@ -1,4 +1,5 @@
-package com.longngohoang.news.appcore.presentation.presentor;
+package com.longngohoang.news.mobile.ui.browser.tweetfragment;
+
 
 import android.util.Log;
 
@@ -8,16 +9,18 @@ import com.longngohoang.news.appcore.presentation.viewmodel.BaseVM;
 import com.longngohoang.news.appcore.presentation.viewmodel.LoadingMoreVM;
 import com.longngohoang.news.appcore.presentation.viewmodel.NoMoreItemVM;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * Created by Admin on 06/10/2016.
+ * Created by Long on 7/8/2016.
  */
 
-public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
-    private static final String TAG = "NYTimesPreModel";
-    public NYTimesPresentationModel() {
+public class TweetPresentationModel extends BasePresentationModel<BaseVM> implements Serializable, TweetView {
+    private static final String TAG = "TweetPresentationModel";
+    public TweetPresentationModel() {
         super();
     }
     private int column = 1;
@@ -43,11 +46,10 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
     public void addAndCollapse(BaseVM baseVM){
 
         if (countNonFullSpanItem%column==0){
-//            Log.d(TAG, "countNonFullSpanItem%2 "+countNonFullSpanItem);
+
             visitableList.add(baseVM);
             if(!baseVM.isFullSpan()){
                 countNonFullSpanItem++;
-//                Log.d(TAG, "countNonFullSpanItem: "+countNonFullSpanItem);
             }
         }else{
             if(baseVM.isFullSpan()){
@@ -59,7 +61,6 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
                     if(!visitableList.get(i).isFullSpan()){
                         visitableList.add(i+1,baseVM);
                         countNonFullSpanItem++;
-//                        Log.d(TAG, "countNonFullSpanItem: "+countNonFullSpanItem);
                         break;
                     }
                 }
@@ -69,7 +70,7 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
     }
     public void addAndCollapse(List<BaseVM> baseVMs){
         for (BaseVM baseVM: baseVMs
-             ) {
+                ) {
             addAndCollapse(baseVM);
         }
         searchRequest.setPage(searchRequest.getPage()+1);
@@ -123,5 +124,26 @@ public class NYTimesPresentationModel extends BasePresentationModel<BaseVM> {
         visitableList.clear();
         countNonFullSpanItem=0;
         addAndCollapse(tempBaseVMs);
+    }
+
+
+    @Override
+    public void showProcess() {
+
+    }
+
+    @Override
+    public void showContent() {
+
+    }
+
+    @Override
+    public void updateView() {
+
+    }
+
+    @Override
+    public void showError(String s) {
+
     }
 }

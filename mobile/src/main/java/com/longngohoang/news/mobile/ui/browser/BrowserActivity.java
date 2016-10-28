@@ -27,6 +27,7 @@ import android.widget.FrameLayout;
 import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
 import com.longngohoang.news.mobile.ui.base.BaseActivity;
+import com.longngohoang.news.mobile.ui.browser.tweetfragment.TweetFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ import static com.longngohoang.news.mobile.R.id.toolbar;
 public class BrowserActivity extends BaseActivity<BrowserPresentationModel, BrowserView, BrowserPresenter>
         implements NavigationView.OnNavigationItemSelectedListener,BrowserView {
     private static final String TAG = "BrowserActivity";
-    //bind
+
     @BindView(R.id.appbar)
     AppBarLayout mAppBar;
     @BindView(toolbar)
@@ -54,9 +55,6 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
 
-//    AllFragment fragmentMain;
-//    AllFragment2 fragmentMain2;
-//    CatalogueFragment fragmentSub;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +63,7 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
-
-        //hideContent();
         setupFab();
-
 
         setupDrawable();
 
@@ -111,10 +105,15 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         frameLayout = (FrameLayout) findViewById(R.id.ivAvatar);
 
         mAppBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
-            boolean showTitle = (mCollapsingToolbar.getHeight() + verticalOffset) <= (mToolbar.getHeight()*3) ;
-//            mToolbar.setTitle(showTitle?"Twitter":"");
+            boolean showTitle = (mCollapsingToolbar.getHeight() + verticalOffset) <= (mToolbar.getHeight()*2) ;
             Log.d(TAG, "verticalOffset: "+verticalOffset);
             frameLayout.setPadding(-verticalOffset/10,-verticalOffset/10,-verticalOffset/10,-verticalOffset/10);
+            if(showTitle){
+                mCollapsingToolbar.setTitle("Twitter");
+            }else {
+                mCollapsingToolbar.setTitle("");
+            }
+
         });
     }
     FrameLayout frameLayout;
@@ -122,13 +121,17 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         SimpleViewPagerAdapter mAdapter = new SimpleViewPagerAdapter(getSupportFragmentManager());
 
 
-//        fragmentMain = AllFragment.newInstance();
+//        fragmentMain = TweetFragment.newInstance();
 //        fragmentMain2 = AllFragment2.newInstance();
 //        fragmentSub = CatalogueFragment.newInstance();
 //        mAdapter.addFragment(fragmentMain, "All");
 //        mAdapter.addFragment(fragmentMain2, "Dribble");
 //        mAdapter.addFragment(fragmentSub, "Catalogue");
 //        mAdapter.addFragment(CatalogueFragment2.newInstance(), "Catalogue2");
+        TweetFragment tweetFragment = TweetFragment.newInstance();
+        mAdapter.addFragment(tweetFragment, "Tweet");
+        mAdapter.addFragment(TweetFragment.newInstance(), "phuong tien");
+        mAdapter.addFragment(TweetFragment.newInstance(), "luot thich");
         mViewpager.setAdapter(mAdapter);
         mTabs.setupWithViewPager(mViewpager);
     }

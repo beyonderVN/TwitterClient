@@ -96,7 +96,6 @@ public class SearchRequest implements Serializable {
     }
 
     public void setFq(List<Desk> fq) {
-
         this.fq = fq;
     }
     public boolean getCheckedFq(int position){

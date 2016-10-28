@@ -54,6 +54,9 @@ public class ChangeOptionDailog extends DialogFragment {
 
     ChangeOptionDialogListener changeOptionDialogListener;
     SearchRequest searchRequest;
+    public ChangeOptionDailog(){
+
+    }
     ChangeOptionDailog(ChangeOptionDialogListener changeOptionDialogListener){
         this.changeOptionDialogListener = changeOptionDialogListener;
     }

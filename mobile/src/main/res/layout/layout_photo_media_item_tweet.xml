@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="0dp"
+    app:cardCornerRadius="8dp"
+    android:layout_marginTop="16dp"
+    android:background="@color/tran">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dog"
+            android:scaleType="fitXY"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black_54p"
+            android:padding="16dp"
+            android:text="Simply a ViewStub is used to increase efficiency of rendering layout. By using ViewStub, manually views can be created but not added to view hierarchy. At the runtime, can be easily inflated, while ViewStub is inflated, the content of the viewstub will be replaced the defined layout in the viewstub."
+            />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

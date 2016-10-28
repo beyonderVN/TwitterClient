@@ -27,10 +27,7 @@ import android.widget.ImageView;
 import com.longngohoang.news.mobile.R;
 
 
-/**
- * Created by chenupt@gmail.com on 2015/1/31.
- * Description TODO
- */
+
 public class GuideFragment extends Fragment {
 
     private String bgRes;
