@@ -11,4 +11,5 @@ import rx.Observable;
  */
 public interface TweetRepository  {
     Observable<List<TweetDM>> getHomeTimeLine();
+    Observable<Boolean> sendTweet(String tweetText);
 }

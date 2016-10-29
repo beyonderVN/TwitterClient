@@ -60,4 +60,9 @@ public class TweetRepositoryImpl implements TweetRepository {
                     return tweetDMs;
                 });
     }
+
+    @Override
+    public Observable<Boolean> sendTweet(String tweetText) {
+        return tweetDataSource.sendTweet(tweetText);
+    }
 }

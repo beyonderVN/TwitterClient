@@ -27,4 +27,9 @@ public class TweetRemoteDataSource implements TweetDataSource {
     public Observable<List<Tweet>> getHomeTimeLine() {
         return twitterService.getHomeTimeLine();
     }
+
+    @Override
+    public Observable<Boolean> sendTweet(String tweetText) {
+        return twitterService.sendTweet(tweetText);
+    }
 }

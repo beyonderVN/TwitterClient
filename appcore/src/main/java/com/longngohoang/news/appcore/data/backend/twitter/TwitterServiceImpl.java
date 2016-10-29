@@ -74,5 +74,23 @@ public class TwitterServiceImpl extends TwitterApiClient implements TwitterServi
         });
     }
 
+    public Observable<Boolean> sendTweet(String tweetText) {
+        return Observable.create(subscriber -> {
+            Callback<Tweet> callback = new Callback<Tweet>() {
+                @Override
+                public void success(Result<Tweet> result) {
+                    Log.i(TAG, "Tweet tweeted");
+                    subscriber.onNext(true);
+                }
 
+                @Override
+                public void failure(TwitterException e) {
+                    Log.e(TAG, e.getMessage(), e);
+                    subscriber.onError(e);
+                }
+            };
+
+            getStatusesService().update(tweetText, null, null, null, null, null, null, null, null).enqueue(callback);
+        });
+    }
 }

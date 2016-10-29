@@ -1,15 +1,13 @@
 package com.longngohoang.news.mobile.ui.browser;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -17,11 +15,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.FrameLayout;
 
 import com.longngohoang.news.mobile.MainApplication;
@@ -34,6 +32,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.longngohoang.news.mobile.R.id.toolbar;
 
@@ -75,16 +74,6 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
 
     private void setupFab() {
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
-        });
     }
 
     private void setupDrawable() {
@@ -121,13 +110,6 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         SimpleViewPagerAdapter mAdapter = new SimpleViewPagerAdapter(getSupportFragmentManager());
 
 
-//        fragmentMain = TweetFragment.newInstance();
-//        fragmentMain2 = AllFragment2.newInstance();
-//        fragmentSub = CatalogueFragment.newInstance();
-//        mAdapter.addFragment(fragmentMain, "All");
-//        mAdapter.addFragment(fragmentMain2, "Dribble");
-//        mAdapter.addFragment(fragmentSub, "Catalogue");
-//        mAdapter.addFragment(CatalogueFragment2.newInstance(), "Catalogue2");
         TweetFragment tweetFragment = TweetFragment.newInstance();
         mAdapter.addFragment(tweetFragment, "Tweet");
         mAdapter.addFragment(TweetFragment.newInstance(), "phuong tien");
@@ -266,6 +248,21 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
     public void onDisconnected() {
 
     }
+    @OnClick(R.id.fab)
+    void showDailog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("New Tweet");
+
+        final TextInputEditText input = new TextInputEditText(this);
 
 
+        final TextInputLayout textInputLayout = new TextInputLayout(this);
+        textInputLayout.setCounterEnabled(true);
+        textInputLayout.setCounterMaxLength(140);
+        textInputLayout.addView(input);
+        builder.setView(textInputLayout);
+        builder.setPositiveButton("OK", (dialog, which) -> presenter.sendTweet(input.getText().toString()));
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        builder.show();
+    }
 }

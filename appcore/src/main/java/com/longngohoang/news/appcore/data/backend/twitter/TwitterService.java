@@ -13,5 +13,6 @@ public interface TwitterService {
 
     Observable<User> getUserProfile();
     Observable<List<Tweet>> getHomeTimeLine();
+    Observable<Boolean> sendTweet(String tweetText);
 
 }

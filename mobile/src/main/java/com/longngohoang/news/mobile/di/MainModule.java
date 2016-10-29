@@ -12,6 +12,7 @@ import com.longngohoang.news.appcore.data.source.remote.TweetRemoteDataSource;
 import com.longngohoang.news.appcore.data.source.remote.UserRemoteDataSource;
 import com.longngohoang.news.appcore.interactor.GetHomeTimeLine;
 import com.longngohoang.news.appcore.interactor.GetUserProfileUseCase;
+import com.longngohoang.news.appcore.interactor.SendTweetUseCase;
 import com.longngohoang.news.appcore.interactor.TweetRepository;
 import com.longngohoang.news.appcore.interactor.UseCase;
 import com.longngohoang.news.appcore.interactor.UserRepository;
@@ -71,6 +72,11 @@ public class MainModule {
     UseCase provideGetUserProfileUseCase(
             GetUserProfileUseCase getUserProfileUseCase) {
         return getUserProfileUseCase;
+    }
+    @Provides @Named("sendTweet")
+    UseCase provideSendTweetUseCase(
+            SendTweetUseCase sendTweetUseCase) {
+        return sendTweetUseCase;
     }
 
 

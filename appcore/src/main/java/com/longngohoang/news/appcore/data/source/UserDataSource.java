@@ -9,4 +9,5 @@ import rx.Observable;
  */
 public interface UserDataSource {
     Observable<User> getUserProfile();
+
 }

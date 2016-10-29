@@ -6,6 +6,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="fashion_style">Fashion &amp; Style</string>
+    <string name="_64_name">\@%s</string>
 
 
     <string-array name="sort_order_array">

@@ -24,4 +24,5 @@ public class UserRemoteDataSource implements UserDataSource {
     public Observable<User> getUserProfile() {
         return twitterService.getUserProfile();
     }
+
 }

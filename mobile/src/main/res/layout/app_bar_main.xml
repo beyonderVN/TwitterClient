@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="8dp"
-        android:src="@android:drawable/ic_menu_share"
+        android:src="@drawable/ic_edit_white_24dp"
         app:fabSize="auto"
         app:layout_behavior="com.longngohoang.news.appcore.common.ScrollAwareFABBehavior"
         />
