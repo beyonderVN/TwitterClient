@@ -1,4 +1,4 @@
-package com.longngohoang.news.mobile.ui.browser.tweetfragment;
+package com.longngohoang.news.mobile.ui.browser.homelinefragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,16 +20,16 @@ import com.longngohoang.news.appcore.common.recyclerviewhelper.InfiniteScrollLis
 import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
 import com.longngohoang.news.mobile.ui.base.BaseFragment;
-import com.longngohoang.news.mobile.ui.browser.tweetfragment.adapter.TweetAdapter;
+import com.longngohoang.news.mobile.ui.browser.homelinefragment.adapter.TweetAdapter;
 
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class TweetFragment extends BaseFragment<TweetPresentationModel, TweetView, TweetPresenter>
-        implements TweetView {
-    private static final String TAG = "TweetFragment";
+public class HomeLineFragment extends BaseFragment<HomeLinePresentationModel, HomeLineView, HomeLinePresenter>
+        implements HomeLineView {
+    private static final String TAG = "HomeLineFragment";
     private static final int POSITION_CONTENT_VIEW = 0;
     private static final int POSITION_PROGRESS_VIEW = 1;
 
@@ -46,19 +46,19 @@ public class TweetFragment extends BaseFragment<TweetPresentationModel, TweetVie
     private TweetAdapter tweetAdapter;
 
 
-    public static TweetFragment newInstance(int position) {
-        TweetFragment f = new TweetFragment();
+    public static HomeLineFragment newInstance(int position) {
+        HomeLineFragment f = new HomeLineFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         f.setArguments(b);
         return f;
     }
 
-    public static TweetFragment newInstance() {
-        return new TweetFragment();
+    public static HomeLineFragment newInstance() {
+        return new HomeLineFragment();
     }
 
-    public TweetFragment() {
+    public HomeLineFragment() {
         // Required empty public constructor
     }
 
@@ -176,8 +176,8 @@ public class TweetFragment extends BaseFragment<TweetPresentationModel, TweetVie
 
     @NonNull
     @Override
-    protected TweetPresentationModel createPresentationModel() {
-        return new TweetPresentationModel();
+    protected HomeLinePresentationModel createPresentationModel() {
+        return new HomeLinePresentationModel();
     }
 
     @Override

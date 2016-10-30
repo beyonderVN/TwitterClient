@@ -19,6 +19,6 @@ public class GetHomeTimeLine extends UseCase {
     }
     @Override
     protected Observable buildUseCaseObservable(Object ...objects) {
-        return tweetRepository.getHomeTimeLine();
+        return tweetRepository.getHomeTimeLine((Long)objects[0]);
     }
 }

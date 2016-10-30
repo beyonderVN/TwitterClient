@@ -6,6 +6,7 @@ import android.support.annotation.VisibleForTesting;
 
 import com.fernandocejas.frodo.annotation.RxLogObservable;
 import com.longngohoang.news.appcore.data.model.TweetDM;
+import com.longngohoang.news.appcore.data.source.realm.TweetRealmDataSource;
 import com.longngohoang.news.appcore.interactor.TweetRepository;
 import com.twitter.sdk.android.core.models.Tweet;
 
@@ -25,7 +26,7 @@ import rx.Observable;
 public class TweetRepositoryImpl implements TweetRepository {
     @NonNull
     private final TweetDataSource tweetDataSource;
-
+    private final TweetRealmDataSource tweetRealmDataSource;
 
     /**
      * This variable has package local visibility so it can be accessed from tests.
@@ -45,20 +46,28 @@ public class TweetRepositoryImpl implements TweetRepository {
     @Inject
     public TweetRepositoryImpl(TweetDataSource tweetRemoteDataSource) {
         tweetDataSource = tweetRemoteDataSource;
+        this.tweetRealmDataSource = new TweetRealmDataSource();
 
     }
     @RxLogObservable
     @Override
-    public Observable<List<TweetDM>> getHomeTimeLine() {
-        return tweetDataSource.getHomeTimeLine()
+    public Observable<List<TweetDM>> getHomeTimeLine(Long maxId) {
+        Observable remoteTweetsDatasource =
+        tweetDataSource.getHomeTimeLine(maxId)
                 .map(tweets -> {
                     List<TweetDM> tweetDMs = new ArrayList<>();
                     for (Tweet tweet:tweets
                          ) {
                         tweetDMs.add(new TweetDM(tweet));
                     }
+                    tweetRealmDataSource.store(tweetDMs);
                     return tweetDMs;
                 });
+        Observable realmTweetsDataSource =
+       tweetRealmDataSource.getHomeTimeLine(maxId);
+        return remoteTweetsDatasource
+                .onErrorResumeNext(realmTweetsDataSource)
+                ;
     }
 
     @Override

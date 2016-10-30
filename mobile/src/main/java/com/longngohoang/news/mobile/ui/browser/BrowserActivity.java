@@ -1,5 +1,6 @@
 package com.longngohoang.news.mobile.ui.browser;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
@@ -24,8 +25,10 @@ import android.widget.FrameLayout;
 
 import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
+import com.longngohoang.news.mobile.ui.LoginActivity;
 import com.longngohoang.news.mobile.ui.base.BaseActivity;
-import com.longngohoang.news.mobile.ui.browser.tweetfragment.TweetFragment;
+import com.longngohoang.news.mobile.ui.browser.homelinefragment.HomeLineFragment;
+import com.twitter.sdk.android.Twitter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +61,10 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Twitter.getSessionManager().getActiveSession().getAuthToken()==null) {
+            Twitter.logOut();
+            startActivity(new Intent(this, LoginActivity.class));
+        }
         setTheme(R.style.AppTheme_NoActionBar);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -89,7 +96,6 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         toggle = new ActionBarDrawerToggle(
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
-        getSupportActionBar().setTitle("");
         toggle.syncState();
         frameLayout = (FrameLayout) findViewById(R.id.ivAvatar);
 
@@ -110,10 +116,10 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         SimpleViewPagerAdapter mAdapter = new SimpleViewPagerAdapter(getSupportFragmentManager());
 
 
-        TweetFragment tweetFragment = TweetFragment.newInstance();
+        HomeLineFragment tweetFragment = HomeLineFragment.newInstance();
         mAdapter.addFragment(tweetFragment, "Tweet");
-        mAdapter.addFragment(TweetFragment.newInstance(), "phuong tien");
-        mAdapter.addFragment(TweetFragment.newInstance(), "luot thich");
+        mAdapter.addFragment(HomeLineFragment.newInstance(), "phuong tien");
+        mAdapter.addFragment(HomeLineFragment.newInstance(), "luot thich");
         mViewpager.setAdapter(mAdapter);
         mTabs.setupWithViewPager(mViewpager);
     }
@@ -177,16 +183,11 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         //noinspection SimplifiableIfStatement
 
         switch (id){
-//            case R.id.action_cart :
-//                presenter.resetListItemProduct();
-//                Toast.makeText(this, "R.id.action_cart", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.action_search:
-//                Toast.makeText(this, "R.id.action_search", Toast.LENGTH_SHORT).show();
-//                return true;
-//            case R.id.action_favorite :
-//                Toast.makeText(this, "R.id.action_favorite", Toast.LENGTH_SHORT).show();
-//                return true;
+            case R.id.action_logout :
+                Twitter.logOut();
+                startActivity(new Intent(this, LoginActivity.class));
+                return true;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -254,8 +255,6 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
         builder.setTitle("New Tweet");
 
         final TextInputEditText input = new TextInputEditText(this);
-
-
         final TextInputLayout textInputLayout = new TextInputLayout(this);
         textInputLayout.setCounterEnabled(true);
         textInputLayout.setCounterMaxLength(140);

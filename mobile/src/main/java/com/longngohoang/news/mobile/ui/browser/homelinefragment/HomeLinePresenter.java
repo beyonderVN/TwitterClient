@@ -1,4 +1,4 @@
-package com.longngohoang.news.mobile.ui.browser.tweetfragment;
+package com.longngohoang.news.mobile.ui.browser.homelinefragment;
 
 
 import android.content.Context;
@@ -11,6 +11,8 @@ import com.longngohoang.news.appcore.common.coremvp.SimpleMVPPresenter;
 import com.longngohoang.news.appcore.data.model.TweetDM;
 import com.longngohoang.news.appcore.interactor.DefaultSubscriber;
 import com.longngohoang.news.appcore.interactor.UseCase;
+import com.longngohoang.news.appcore.presentation.exception.ErrorMessageFactory;
+import com.longngohoang.news.appcore.presentation.exception.NetworkConnectionException;
 import com.longngohoang.news.appcore.presentation.viewmodel.mapper.Mapper;
 import com.longngohoang.news.mobile.MainApplication;
 
@@ -23,19 +25,19 @@ import javax.inject.Named;
  * Created by Long on 7/8/2016.
  */
 
-public class TweetPresenter extends SimpleMVPPresenter<TweetView, TweetPresentationModel> implements TweetView {
+public class HomeLinePresenter extends SimpleMVPPresenter<HomeLineView, HomeLinePresentationModel> implements HomeLineView {
 
-    private static final String TAG = "TweetPresenter";
+    private static final String TAG = "HomeLinePresenter";
 
     private final UseCase getHomeTimeLine;
 
     @Inject
-    TweetPresenter(@Named("getHomeTimeLine")UseCase getHomeTimeLine) {
+    HomeLinePresenter(@Named("getHomeTimeLine")UseCase getHomeTimeLine) {
         this.getHomeTimeLine = getHomeTimeLine;
     }
 
     @Override
-    public void attachView(TweetView mvpView, TweetPresentationModel presentationModel) {
+    public void attachView(HomeLineView mvpView, HomeLinePresentationModel presentationModel) {
         super.attachView(mvpView, presentationModel);
 
     }
@@ -53,23 +55,24 @@ public class TweetPresenter extends SimpleMVPPresenter<TweetView, TweetPresentat
 
     public void fetchRepositoryFirst(int column){
         if(isThereInternetConnection()){
-            showProcess();
-            getPresentationModel().refresh(column);
-            getHomeTimeLine.execute(new TweetPresenter.getFirstHomeTimeline());
+
         }else{
-//            showError(ErrorMessageFactory.create(context,new NetworkConnectionException()));
+            showError(ErrorMessageFactory.create(MainApplication.getMainComponent().context(),new NetworkConnectionException()));
 
         }
-
+        showProcess();
+        getPresentationModel().refresh(column);
+        getHomeTimeLine.execute(new HomeLinePresenter.getFirstHomeTimeline(),getPresentationModel().maxId);
     }
     public void fetchMore(){
         if(isThereInternetConnection()) {
-            startLoadingMore();
-            getHomeTimeLine.execute(new TweetPresenter.getMoreHomeTimeline());
+
         }else {
-//            showError(ErrorMessageFactory.create(context,new NetworkConnectionException()));
+            showError(ErrorMessageFactory.create(MainApplication.getMainComponent().context(),new NetworkConnectionException()));
 
         }
+        startLoadingMore();
+        getHomeTimeLine.execute(new HomeLinePresenter.getMoreHomeTimeline(),getPresentationModel().maxId);
     }
 
 
@@ -147,6 +150,7 @@ public class TweetPresenter extends SimpleMVPPresenter<TweetView, TweetPresentat
             Log.d(TAG, "onNext: "+tweets.size());
             if (!tweets.isEmpty()) {
                 Log.d(TAG, "onSuccess: "+tweets.size());
+                getPresentationModel().maxId=tweets.get(tweets.size()-1).id-1;
                 getPresentationModel().addAndCollapse(Mapper.tranToTweetVMs(tweets));
                 updateView();
             } else {
@@ -155,6 +159,7 @@ public class TweetPresenter extends SimpleMVPPresenter<TweetView, TweetPresentat
             }
 
         }
+
     }
 
     @RxLogSubscriber
@@ -174,6 +179,7 @@ public class TweetPresenter extends SimpleMVPPresenter<TweetView, TweetPresentat
             stopLoadingMore();
             if (!tweets.isEmpty()) {
                 Log.d(TAG, "onSuccess: "+tweets.size());
+                getPresentationModel().maxId=tweets.get(tweets.size()-1).id;
                 getPresentationModel().addAndCollapse(Mapper.tranToTweetVMs(tweets));
             } else {
                 Log.d(TAG, "onSuccess: is empty");

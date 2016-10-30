@@ -24,8 +24,8 @@ public class TweetRemoteDataSource implements TweetDataSource {
     }
 
     @Override
-    public Observable<List<Tweet>> getHomeTimeLine() {
-        return twitterService.getHomeTimeLine();
+    public Observable<List<Tweet>> getHomeTimeLine(Long maxId) {
+        return twitterService.getHomeTimeLine(maxId);
     }
 
     @Override

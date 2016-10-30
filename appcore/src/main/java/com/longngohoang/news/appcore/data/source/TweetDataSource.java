@@ -11,6 +11,6 @@ import rx.Observable;
  * Created by Long on 10/27/2016.
  */
 public interface TweetDataSource {
-    Observable<List<Tweet>> getHomeTimeLine();
+    Observable<List<Tweet>> getHomeTimeLine(Long maxId);
     Observable<Boolean> sendTweet(String tweetText);
 }

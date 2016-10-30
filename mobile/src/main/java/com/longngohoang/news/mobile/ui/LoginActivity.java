@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.longngohoang.news.mobile.MainApplication;
 import com.longngohoang.news.mobile.R;
 import com.longngohoang.news.mobile.ui.browser.BrowserActivity;
 import com.twitter.sdk.android.Twitter;
@@ -15,9 +14,6 @@ import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-import com.twitter.sdk.android.core.models.User;
-
-import rx.functions.Action1;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
@@ -26,7 +22,9 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (Twitter.getSessionManager().getActiveSession() != null){
+            startActivity(new Intent(LoginActivity.this, BrowserActivity.class));
+        }
         setContentView(R.layout.activity_login);
 
         loginButton = (TwitterLoginButton) findViewById(R.id.twitter_login_button);
@@ -34,12 +32,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.d(TAG, "success: ");
-                MainApplication.getMainComponent().twitterService().getUserProfile().subscribe(new Action1<User>() {
-                    @Override
-                    public void call(User user) {
-                        Log.d(TAG, "call: "+user.name);
-                    }
-                });
                 startActivity(new Intent(LoginActivity.this, BrowserActivity.class));
                 finishAfterTransition();
             }
@@ -47,7 +39,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void failure(TwitterException exception) {
                 Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
-                Twitter.getSessionManager();
             }
         });
     }

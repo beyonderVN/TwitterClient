@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.longngohoang.news.appcore.data.backend.twitter.TwitterService;
 import com.longngohoang.news.mobile.ui.browser.BrowserActivity;
-import com.longngohoang.news.mobile.ui.browser.tweetfragment.TweetFragment;
+import com.longngohoang.news.mobile.ui.browser.homelinefragment.HomeLineFragment;
 
 import javax.inject.Singleton;
 
@@ -20,5 +20,5 @@ public interface MainComponent {
     TwitterService twitterService();
     void inject(BrowserActivity mainActivity);
 
-    void inject(TweetFragment tweetFragment);
+    void inject(HomeLineFragment tweetFragment);
 }

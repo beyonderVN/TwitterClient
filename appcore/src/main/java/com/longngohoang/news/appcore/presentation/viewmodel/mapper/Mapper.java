@@ -25,7 +25,7 @@ public class Mapper {
     }
 
     private static BaseVM tranToTweetVM(TweetDM tweet) {
-        return new TweetVM(tweet.id,tweet.createdAt,tweet.text,tweet.user);
+        return new TweetVM(tweet);
     }
 
 

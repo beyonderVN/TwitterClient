@@ -12,7 +12,7 @@ public interface TwitterService {
 
 
     Observable<User> getUserProfile();
-    Observable<List<Tweet>> getHomeTimeLine();
+    Observable<List<Tweet>> getHomeTimeLine(Long maxId);
     Observable<Boolean> sendTweet(String tweetText);
 
 }

@@ -1,4 +1,4 @@
-package com.longngohoang.news.mobile.ui.browser.tweetfragment;
+package com.longngohoang.news.mobile.ui.browser.homelinefragment;
 
 
 import android.util.Log;
@@ -18,13 +18,13 @@ import java.util.List;
  * Created by Long on 7/8/2016.
  */
 
-public class TweetPresentationModel extends BasePresentationModel<BaseVM> implements Serializable, TweetView {
-    private static final String TAG = "TweetPresentationModel";
-    public TweetPresentationModel() {
+public class HomeLinePresentationModel extends BasePresentationModel<BaseVM> implements Serializable{
+    private static final String TAG = "HomeLinePreModel";
+    public HomeLinePresentationModel() {
         super();
     }
     private int column = 1;
-
+    public Long maxId =null;
     public SearchRequest getSearchRequest() {
         return searchRequest;
     }
@@ -101,6 +101,7 @@ public class TweetPresentationModel extends BasePresentationModel<BaseVM> implem
         loadingMore =false;
         countNonFullSpanItem=0;
         this.column = column;
+        maxId = null;
     }
 
     public void startLoadingMore() {
@@ -127,23 +128,5 @@ public class TweetPresentationModel extends BasePresentationModel<BaseVM> implem
     }
 
 
-    @Override
-    public void showProcess() {
 
-    }
-
-    @Override
-    public void showContent() {
-
-    }
-
-    @Override
-    public void updateView() {
-
-    }
-
-    @Override
-    public void showError(String s) {
-
-    }
 }

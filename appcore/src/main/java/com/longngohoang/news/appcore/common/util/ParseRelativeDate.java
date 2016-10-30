@@ -1,7 +1,6 @@
 package com.longngohoang.news.appcore.common.util;
 
 import android.text.format.DateUtils;
-import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +25,7 @@ public class ParseRelativeDate {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.d(TAG, rawJsonDate+": "+relativeDate);
+//        Log.d(TAG, rawJsonDate+": "+relativeDate);
         return relativeDate;
     }
 }

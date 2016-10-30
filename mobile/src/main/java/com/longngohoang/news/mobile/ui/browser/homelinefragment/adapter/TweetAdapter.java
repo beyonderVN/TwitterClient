@@ -1,4 +1,4 @@
-package com.longngohoang.news.mobile.ui.browser.tweetfragment.adapter;
+package com.longngohoang.news.mobile.ui.browser.homelinefragment.adapter;
 
 
 import android.app.Activity;

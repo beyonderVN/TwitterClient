@@ -54,7 +54,7 @@ public class TwitterServiceImpl extends TwitterApiClient implements TwitterServi
         });
     }
     @RxLogObservable
-    public Observable<List<Tweet>> getHomeTimeLine() {
+    public Observable<List<Tweet>> getHomeTimeLine(Long maxId) {
         return Observable.create(subscriber -> {
             Callback<List<Tweet>> callback = new Callback<List<Tweet>>() {
                 @Override
@@ -70,7 +70,7 @@ public class TwitterServiceImpl extends TwitterApiClient implements TwitterServi
                 }
             };
 
-            getStatusesService().homeTimeline(null, null, null, null, null, null, null).enqueue(callback);
+            getStatusesService().homeTimeline(null, null, maxId, null, null, null, null).enqueue(callback);
         });
     }
 
