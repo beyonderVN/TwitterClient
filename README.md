@@ -1,6 +1,6 @@
-# Project 2 - *Articale Search*
+# Project 3 - *Twitter Client*
 
-**Name of your app** is an android app that allows a user to search for articles on web using simple filters. The app utilizes [New York Times Search API](http://developer.nytimes.com/docs/read/article_search_api_v2).
+**Name of your app** is an android app that allows a user to view his Twitter timeline and post a new tweet. The app utilizes [Twitter REST API](https://dev.twitter.com/rest/public).
 
 Time spent: **36** hours spent in total
 
@@ -8,36 +8,41 @@ Time spent: **36** hours spent in total
 
 The following **required** functionality is completed:
 
-* [ok] User can **search for news article** by specifying a query and launching a search. Search displays a grid of image results from the New York Times Search API.
-* [ok] User can click on "settings" which allows selection of **advanced search options** to filter results
-* [ok] User can configure advanced search filters such as:
-  * [ok] Begin Date (using a date picker)
-  * [ok] News desk values (Arts, Fashion & Style, Sports)
-  * [ok] Sort order (oldest or newest)
-* [ok] Subsequent searches have any filters applied to the search results
-* [ok] User can tap on any article in results to view the contents in an embedded browser.
-* [ok] User can **scroll down to see more articles**. The maximum number of articles is limited by the API search.
+* [ok]	User can **sign in to Twitter** using OAuth login
+* [ok]	User can **view tweets from their home timeline**
+  * [ok] User is displayed the username, name, and body for each tweet
+  * [ok] User is displayed the [relative timestamp](https://gist.github.com/nesquena/f786232f5ef72f6e10a7) for each tweet "8m", "7h"
+  * [ok] User can view more tweets as they scroll with [infinite pagination](http://guides.codepath.com/android/Endless-Scrolling-with-AdapterViews-and-RecyclerView). Number of tweets is unlimited.
+    However there are [Twitter Api Rate Limits](https://dev.twitter.com/rest/public/rate-limiting) in place.
+* [ok] User can **compose and post a new tweet**
+  * [ok] User can click a “Compose” icon in the Action Bar on the top right
+  * [ok] User can then enter a new tweet and post this to twitter
+  * [ok] User is taken back to home timeline with **new tweet visible** in timeline
 
 The following **optional** features are implemented:
 
-* [ok] Implements robust error handling, [check if internet is available](http://guides.codepath.com/android/Sending-and-Managing-Network-Requests#checking-for-network-connectivity), handle error cases, network failures
-* [ok] Used the **ActionBar SearchView** or custom layout as the query box instead of an EditText
-* [ok] User can **share an article link** to their friends or email it to themselves
-* [ok] Replaced Filter Settings Activity with a lightweight modal overlay
-* [ok] Improved the user interface and experiment with image assets and/or styling and coloring
+* [ok] User can **see a counter with total number of characters left for tweet** on compose tweet page
+* [ok] User can **click a link within a tweet body** on tweet details view. The click will launch the web browser with relevant page opened.
+* [ok] User can **pull down to refresh tweets timeline**
+* [ok] User can **open the twitter app offline and see last loaded tweets**. Persisted in SQLite tweets are refreshed on every application launch. While "live data" is displayed when app can get it from Twitter API, it is also saved for use in offline mode.
+* [ok] User can tap a tweet to **open a detailed tweet view**
+* [ ] User can **select "reply" from detail view to respond to a tweet**
+* [ok] Improve the user interface and theme the app to feel "twitter branded"
 
 The following **bonus** features are implemented:
 
-* [ok] Use the [RecyclerView](http://guides.codepath.com/android/Using-the-RecyclerView) with the `StaggeredGridLayoutManager` to display improve the grid of image results
-* [ok] For different news articles that only have text or only have images, use [Heterogenous Layouts](http://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView) with RecyclerView
+* [ ] User can see embedded image media within the tweet detail view
+* [ ] User can watch embedded video within the tweet
+* [ok] Compose tweet functionality is build using modal overlay
 * [ ] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
-* [ok] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
+* [ok] [Leverage RecyclerView](http://guides.codepath.com/android/Using-the-RecyclerView) as a replacement for the ListView and ArrayAdapter for all lists of tweets.
+* [ok] Move the "Compose" action to a [FloatingActionButton](https://github.com/codepath/android_guides/wiki/Floating-Action-Buttons) instead of on the AppBar.
+* [ok] On the Twitter timeline, leverage the [CoordinatorLayout](http://guides.codepath.com/android/Handling-Scrolls-with-CoordinatorLayout#responding-to-scroll-events) to apply scrolling behavior that [hides / shows the toolbar](http://guides.codepath.com/android/Using-the-App-ToolBar#reacting-to-scroll).
 * [ok] Replace all icon drawables and other static image assets with [vector drawables](http://guides.codepath.com/android/Drawables#vector-drawables) where appropriate.
+* [ ] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
 * [ok] Replace Picasso with [Glide](http://inthecheesefactory.com/blog/get-to-know-glide-recommended-by-google/en) for more efficient image rendering.
-* [ok] Uses [retrolambda expressions](http://guides.codepath.com/android/Lambda-Expressions) to cleanup event handling blocks.
-* [ok] Leverages the popular [GSON library](http://guides.codepath.com/android/Using-Android-Async-Http-Client#decoding-with-gson-library) to streamline the parsing of JSON data.
-* [ok] Leverages the [Retrofit networking library](http://guides.codepath.com/android/Consuming-APIs-with-Retrofit) to access the New York Times API.
-* [ok] Replace the embedded `WebView` with [Chrome Custom Tabs](http://guides.codepath.com/android/Chrome-Custom-Tabs) using a custom action button for sharing. (_**2 points**_)
+* [ ] Enable your app to [receive implicit intents](http://guides.codepath.com/android/Using-Intents-to-Create-Flows#receiving-implicit-intents) from other apps.  When a link is shared from a web browser, it should pre-fill the text and title of the web page when composing a tweet.
+* [ ] When a user leaves the compose view without publishing and there is existing text, prompt to save or delete the draft.  The draft can be resumed from the compose view.
 
 The following **additional** features are implemented:
 
@@ -47,16 +52,16 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/2YkMxnW.gifv' title='Video Walkthrough' width='' alt='Video Walkthrough' />
-http://i.imgur.com/2YkMxnW.gifv
+<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
 
-
 ## Open-source libraries used
+
 - [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
 - [ButterKnife] (https://github.com/JakeWharton/butterknife) - Field and method binding for Android views which uses annotation processing to generate boilerplate code for you
 - [Rxjava] (https://github.com/ReactiveX/RxJava) -  Reactive Extensions for the JVM
@@ -64,11 +69,9 @@ Describe any challenges encountered while building the app.
 - [retrofit] (https://github.com/square/retrofit) - Type-safe HTTP client for Android and Java by Square, Inc.
 - [Okhttp] (https://github.com/square/okhttp) - An HTTP+HTTP/2 client for Android and Java applications.
 
-
-
 ## License
 
-    Copyright 2016 BeyonderVN
+    Copyright 2016 beyonderVN
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
