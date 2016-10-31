@@ -4,7 +4,7 @@ import android.view.View;
 
 
 import com.longngo.moviebox.wear.adapter.holder.BaseViewHolder;
-import com.longngohoang.news.appcore.presentation.moviebox.viewmodel.VMTypeFactory;
+import com.longngohoang.twitter.appcore.presentation.moviebox.viewmodel.VMTypeFactory;
 
 
 /**

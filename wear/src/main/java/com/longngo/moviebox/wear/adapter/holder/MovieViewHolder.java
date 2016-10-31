@@ -5,8 +5,8 @@ import android.widget.ImageView;
 
 
 import com.longngo.moviebox.wear.R;
-import com.longngohoang.news.appcore.common.recyclerviewhelper.PlaceHolderDrawableHelper;
-import com.longngohoang.news.appcore.presentation.moviebox.viewmodel.MovieVM;
+import com.longngohoang.twitter.appcore.common.recyclerviewhelper.PlaceHolderDrawableHelper;
+import com.longngohoang.twitter.appcore.presentation.moviebox.viewmodel.MovieVM;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;

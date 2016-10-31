@@ -69,7 +69,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/dog"
+                    android:background="@color/white"
+                    android:src="@drawable/ic_camera_alt_24dp"
                     />
             </android.support.v7.widget.CardView>
         </android.support.v7.widget.CardView>
