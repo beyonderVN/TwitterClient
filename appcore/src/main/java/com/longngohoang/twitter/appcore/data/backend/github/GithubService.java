@@ -3,7 +3,10 @@ package com.longngohoang.twitter.appcore.data.backend.github;
 import android.util.Log;
 
 import com.fernandocejas.frodo.annotation.RxLogObservable;
+import com.longngohoang.twitter.appcore.data.backend.github.model.GitRepo;
 import com.longngohoang.twitter.appcore.data.backend.github.model.UserGit;
+
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -28,7 +31,7 @@ public class GithubService {
         return githubApi.getUser(user);
     }
     @RxLogObservable
-    public Observable<UserGit> getRepos(String user) {
+    public Observable<List<GitRepo>> getRepos(String user) {
         Log.d(TAG, "getUserGit: ");
         return githubApi.getRepos(user);
     }

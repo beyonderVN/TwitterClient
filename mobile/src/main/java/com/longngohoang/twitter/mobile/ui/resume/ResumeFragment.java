@@ -3,7 +3,10 @@ package com.longngohoang.twitter.mobile.ui.resume;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,21 +16,26 @@ import android.widget.TextView;
 
 import com.longngohoang.twitter.appcore.data.backend.github.model.GitRepo;
 import com.longngohoang.twitter.appcore.data.backend.github.model.UserGit;
-import com.longngohoang.twitter.appcore.interactor.DefaultSubscriber;
 import com.longngohoang.twitter.mobile.MainApplication;
 import com.longngohoang.twitter.mobile.R;
+import com.longngohoang.twitter.mobile.ui.resume.adapter.RepoAdapter;
+import com.longngohoang.twitter.mobile.ui.resume.adapter.viewmodel.RepoVM;
+import com.longngohoang.twitter.mobile.ui.resume.adapter.viewmodel.ResumeVisitable;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
 import rx.Subscription;
 
 public class ResumeFragment extends Fragment {
     private static final String TAG = "ResumeFragment";
     private static UserGit userGit;
-    private static List<GitRepo> gitRepos;
+    private static List<ResumeVisitable> gitRepos= new ArrayList<>();
+    private RepoAdapter repoAdapter;
     @BindView(R.id.ivBanner)
     ImageView ivBanner;
     @BindView(R.id.ivAvatar)
@@ -54,7 +62,8 @@ public class ResumeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-    Subscription subscription ;
+    Subscription subscriptionUser;
+    Subscription subscriptionRepo ;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,36 +77,50 @@ public class ResumeFragment extends Fragment {
 
         return inflater.inflate(R.layout.fragment_resume, container, false);
     }
+    void setupRV() {
+        final StaggeredGridLayoutManager staggeredGridLayoutManagerVertical =
+                new StaggeredGridLayoutManager(
+                        1, //The number of Columns in the grid
+                        LinearLayoutManager.VERTICAL);
+        staggeredGridLayoutManagerVertical.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+        staggeredGridLayoutManagerVertical.invalidateSpanAssignments();
 
+        rvRepoList.setLayoutManager(staggeredGridLayoutManagerVertical);
+        rvRepoList.setHasFixedSize(true);
+        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
+        itemAnimator.setAddDuration(3000);
+        itemAnimator.setRemoveDuration(3000);
+        rvRepoList.setItemAnimator(itemAnimator);
+        repoAdapter = new RepoAdapter(getContext(), gitRepos);
+        rvRepoList.setAdapter(repoAdapter);
+    }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
+        setupRV();
         if (userGit != null) {
             Picasso.with(getContext()).load(userGit.getAvatarUrl()).into(ivAvatar);
             tvName.setText(userGit.getName());
             tvEmail.setText(userGit.getEmail());
             tvDes.setText(userGit.getHtmlUrl());
         }else {
-            subscription =   MainApplication.getMainComponent().githubService().getUserGit("beyonderVN")
+            subscriptionUser =   MainApplication.getMainComponent().githubService().getUserGit("beyonderVN")
                     .subscribeOn(MainApplication.getMainComponent().schedulerProvider().computation())
                     .observeOn(MainApplication.getMainComponent().schedulerProvider().ui())
-                    .subscribe(new DefaultSubscriber<UserGit>() {
+                    .subscribe(new Subscriber<UserGit>() {
                         @Override
                         public void onCompleted() {
-                            super.onCompleted();
                             Log.d(TAG, "onCompleted: ");
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            super.onError(e);
                             Log.d(TAG, "onError: ");
                         }
 
                         @Override
                         public void onNext(UserGit userGit1) {
-                            super.onNext(userGit);
                             Log.d(TAG, "onNext: "+userGit1.getName());
                             userGit = userGit1;
                             Picasso.with(getContext()).load(userGit.getAvatarUrl()).into(ivAvatar);
@@ -108,34 +131,35 @@ public class ResumeFragment extends Fragment {
                     });
 
         }
-        if (gitRepos != null&&gitRepos.size()>0) {
+
+        if (gitRepos.size()>0) {
+            Log.d(TAG, "gitRepos.size(): "+gitRepos.size());
 
         }else {
-            subscription =   MainApplication.getMainComponent().githubService().getUserGit("beyonderVN")
+            subscriptionRepo =   MainApplication.getMainComponent().githubService().getRepos("beyonderVN")
                     .subscribeOn(MainApplication.getMainComponent().schedulerProvider().computation())
                     .observeOn(MainApplication.getMainComponent().schedulerProvider().ui())
-                    .subscribe(new DefaultSubscriber<UserGit>() {
+                    .subscribe(new Subscriber<List<GitRepo>>(){
                         @Override
                         public void onCompleted() {
-                            super.onCompleted();
-                            Log.d(TAG, "onCompleted: ");
+
                         }
 
                         @Override
                         public void onError(Throwable e) {
-                            super.onError(e);
-                            Log.d(TAG, "onError: ");
+
                         }
 
                         @Override
-                        public void onNext(UserGit userGit1) {
-                            super.onNext(userGit);
-                            Log.d(TAG, "onNext: "+userGit1.getName());
-                            userGit = userGit1;
-                            Picasso.with(getContext()).load(userGit.getAvatarUrl()).into(ivAvatar);
-                            tvName.setText(userGit.getName());
-                            tvEmail.setText(userGit.getEmail());
-                            tvDes.setText(userGit.getHtmlUrl());
+                        public void onNext(List<GitRepo> gitRepos1) {
+                            Log.d(TAG, "gitRepos1.size(): "+gitRepos1.size());
+                            for (GitRepo gitRepo:gitRepos1
+                                 ) {
+                                if (!gitRepo.getFork()){
+                                    gitRepos.add(new RepoVM(gitRepo));
+                                }
+                            }
+                            repoAdapter.notifyDataSetChanged();
                         }
                     });
 
@@ -145,9 +169,13 @@ public class ResumeFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        if (subscription != null) {
-            subscription.unsubscribe();
+        if (subscriptionUser != null) {
+            subscriptionUser.unsubscribe();
         }
+        if (subscriptionRepo != null) {
+            subscriptionRepo.unsubscribe();
+        }
+
         super.onDetach();
 
     }

@@ -1,7 +1,10 @@
 package com.longngohoang.twitter.appcore.data.backend.github;
 
 import com.fernandocejas.frodo.annotation.RxLogObservable;
+import com.longngohoang.twitter.appcore.data.backend.github.model.GitRepo;
 import com.longngohoang.twitter.appcore.data.backend.github.model.UserGit;
+
+import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -18,5 +21,5 @@ public interface GithubApi {
 
     @RxLogObservable
     @GET("users/{user}/repos")
-    Observable<UserGit> getRepos(@Path("user") String user);
+    Observable<List<GitRepo>> getRepos(@Path("user") String user);
 }
