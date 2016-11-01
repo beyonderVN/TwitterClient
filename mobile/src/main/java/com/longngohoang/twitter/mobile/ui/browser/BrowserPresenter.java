@@ -5,9 +5,11 @@ import android.util.Log;
 
 import com.fernandocejas.frodo.annotation.RxLogSubscriber;
 import com.longngohoang.twitter.appcore.common.coremvp.SimpleMVPPresenter;
+import com.longngohoang.twitter.appcore.data.backend.github.model.UserGit;
 import com.longngohoang.twitter.appcore.data.model.UserDM;
 import com.longngohoang.twitter.appcore.interactor.DefaultSubscriber;
 import com.longngohoang.twitter.appcore.interactor.UseCase;
+import com.longngohoang.twitter.mobile.MainApplication;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,6 +33,7 @@ public class BrowserPresenter extends SimpleMVPPresenter<BrowserView, BrowserPre
     @Override
     public void attachView(BrowserView mvpView, BrowserPresentationModel presentationModel) {
         super.attachView(mvpView, presentationModel);
+
         getUserProfileUseCase.execute(new getUserProfileSubscriber());
     }
 

@@ -2,7 +2,6 @@ package com.longngo.moviebox.wear.di;
 
 import android.content.Context;
 
-
 import com.longngo.moviebox.wear.WearApplication;
 import com.longngohoang.twitter.appcore.common.schedulers.BaseSchedulerProvider;
 import com.longngohoang.twitter.appcore.common.schedulers.SchedulerProvider;

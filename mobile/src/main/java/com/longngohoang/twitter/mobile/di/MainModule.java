@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.longngohoang.twitter.appcore.common.schedulers.BaseSchedulerProvider;
 import com.longngohoang.twitter.appcore.common.schedulers.SchedulerProvider;
+import com.longngohoang.twitter.appcore.data.backend.github.GithubApi;
+import com.longngohoang.twitter.appcore.data.backend.github.GithubServiceFactory;
 import com.longngohoang.twitter.appcore.data.backend.twitter.TwitterService;
 import com.longngohoang.twitter.appcore.data.backend.twitter.TwitterServiceImpl;
 import com.longngohoang.twitter.appcore.data.source.TweetRepositoryImpl;
@@ -45,6 +47,12 @@ public class MainModule {
     @Singleton
     BaseSchedulerProvider provideSchedulerProvider(SchedulerProvider schedulerProvider) {
         return schedulerProvider;
+    }
+    //  provide GithubApi
+    @Provides
+    @Singleton
+    GithubApi provideGithubApi() {
+        return GithubServiceFactory.makeService();
     }
 //  provide BackendServices
     @Provides

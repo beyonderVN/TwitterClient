@@ -28,7 +28,7 @@ import static com.longngohoang.twitter.mobile.MainApplication.mContext;
  * Created by Long on 10/28/2016.
  */
 public class TweetHolder extends BaseViewHolder<TweetVM> {
-    @BindView(R.id.ivAvatar)
+    @BindView(R.id.flCover)
     ImageView ivAvatar;
     @BindView(R.id.rvTweetRight)
     RecyclerView rvTweetRight;

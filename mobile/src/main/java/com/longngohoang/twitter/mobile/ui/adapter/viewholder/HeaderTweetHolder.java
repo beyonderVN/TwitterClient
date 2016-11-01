@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
  * Created by Long on 10/28/2016.
  */
 public class HeaderTweetHolder extends BaseViewHolder<HeaderTweetVM>  {
-    @BindView(R.id.tvUserName)
+    @BindView(R.id.tvEmail)
     TextView tvUserName;
     @BindView(R.id.tvName)
     TextView tvName;

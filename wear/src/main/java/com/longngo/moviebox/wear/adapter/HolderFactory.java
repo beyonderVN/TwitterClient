@@ -2,7 +2,6 @@ package com.longngo.moviebox.wear.adapter;
 
 import android.view.View;
 
-
 import com.longngo.moviebox.wear.adapter.holder.BaseViewHolder;
 import com.longngohoang.twitter.appcore.presentation.moviebox.viewmodel.VMTypeFactory;
 

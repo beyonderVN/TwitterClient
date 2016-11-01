@@ -86,9 +86,8 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
     }
 
     private void setupDrawable() {
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView.setNavigationItemSelectedListener(this);
         setupToolbar(mDrawer);
     }
     ActionBarDrawerToggle toggle;
@@ -99,7 +98,7 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
                 this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-        frameLayout = (FrameLayout) findViewById(R.id.ivAvatar);
+        frameLayout = (FrameLayout) findViewById(R.id.flCover);
 
         mAppBar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
             boolean showTitle = (mCollapsingToolbar.getHeight() + verticalOffset) <= (mToolbar.getHeight()*2) ;

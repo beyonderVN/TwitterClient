@@ -79,7 +79,6 @@ public class TwitterServiceImpl extends TwitterApiClient implements TwitterServi
             Callback<Tweet> callback = new Callback<Tweet>() {
                 @Override
                 public void success(Result<Tweet> result) {
-                    Log.i(TAG, "Tweet tweeted");
                     subscriber.onNext(true);
                 }
 

@@ -28,7 +28,7 @@
             android:layout_marginTop="4dp">
 
             <ImageView
-                android:id="@+id/ivAvatar"
+                android:id="@+id/flCover"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
                  />

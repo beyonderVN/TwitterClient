@@ -3,7 +3,6 @@ package com.longngo.moviebox.wear.adapter.holder;
 import android.view.View;
 import android.widget.ImageView;
 
-
 import com.longngo.moviebox.wear.R;
 import com.longngohoang.twitter.appcore.common.recyclerviewhelper.PlaceHolderDrawableHelper;
 import com.longngohoang.twitter.appcore.presentation.moviebox.viewmodel.TrailerMovieVM;

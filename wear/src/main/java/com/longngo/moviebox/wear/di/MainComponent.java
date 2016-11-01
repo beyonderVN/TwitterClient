@@ -2,7 +2,6 @@ package com.longngo.moviebox.wear.di;
 
 import android.content.Context;
 
-
 import com.longngo.moviebox.wear.MainActivity;
 import com.longngohoang.twitter.appcore.data.moviebox.backend.MovieBoxService;
 
