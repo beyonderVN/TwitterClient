@@ -6,7 +6,10 @@
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black_54p"/>
+        android:textColor="@color/black_54p"
+        android:textSize="16dp"
+        android:textAllCaps="true"
+        android:textStyle="bold"/>
     <TextView
         android:id="@+id/tvHtmlUrl"
         android:layout_width="match_parent"
@@ -17,4 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/black_54p"/>
+    <View
+        android:background="@color/card_default_background"
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:layout_margin="24dp"/>
 </LinearLayout>

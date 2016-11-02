@@ -1,5 +1,6 @@
 package com.longngohoang.twitter.mobile.ui.resume;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -30,6 +31,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.Subscriber;
 import rx.Subscription;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ResumeFragment extends Fragment {
     private static final String TAG = "ResumeFragment";
@@ -99,6 +102,10 @@ public class ResumeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         setupRV();
+        SharedPreferences pre= getActivity().getSharedPreferences ("resume",MODE_PRIVATE);
+        tvName.setText(pre.getString("resume_name", ""));
+        tvEmail.setText(pre.getString("resume_name", ""));
+        tvDes.setText(pre.getString("resume_name", ""));
         if (userGit != null) {
             Picasso.with(getContext()).load(userGit.getAvatarUrl()).into(ivAvatar);
             tvName.setText(userGit.getName());
@@ -127,6 +134,12 @@ public class ResumeFragment extends Fragment {
                             tvName.setText(userGit.getName());
                             tvEmail.setText(userGit.getEmail());
                             tvDes.setText(userGit.getHtmlUrl());
+                            SharedPreferences pre= getActivity().getSharedPreferences ("resume",MODE_PRIVATE);
+                            SharedPreferences.Editor edit=pre.edit();
+                            edit.putString("resume_name", userGit.getName());
+                            edit.putString("resume_email", userGit.getEmail());
+                            edit.putString("resume_htmlurl", userGit.getHtmlUrl());
+                            edit.commit();
                         }
                     });
 
