@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 
 public class TweetDM implements Serializable {
+    private static final String TAG = "TweetDM";
     public long id;
     public String createdAt;
     public String text;
@@ -22,7 +23,10 @@ public class TweetDM implements Serializable {
         this.text = tweet.text;
         this.user = new UserDM(tweet.user);
         if (!(tweet.entities.media == null)) {
-            this.media = new MediaDM(tweet.entities.media.get(0).type,tweet.entities.media.get(0).mediaUrl,tweet.entities.media.get(0).altText);
+            this.media = new MediaDM(
+                    tweet.entities.media.get(0).mediaUrl.contains("video")? "video":"photo",
+                    tweet.entities.media.get(0).mediaUrl,
+                    tweet.entities.media.get(0).altText);
         }
 
     }

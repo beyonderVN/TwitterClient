@@ -3,6 +3,7 @@ package com.longngohoang.twitter.mobile.ui.adapter.viewholder;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -28,6 +29,7 @@ import static com.longngohoang.twitter.mobile.MainApplication.mContext;
  * Created by Long on 10/28/2016.
  */
 public class TweetHolder extends BaseViewHolder<TweetVM> {
+    private static final String TAG = "TweetHolder";
     @BindView(R.id.flCover)
     ImageView ivAvatar;
     @BindView(R.id.rvTweetRight)
@@ -41,8 +43,11 @@ public class TweetHolder extends BaseViewHolder<TweetVM> {
         List<BaseVM> baseVMs = new ArrayList<>();
         Picasso.with(itemView.getContext()).load(item.user.profileImageUrl).into(ivAvatar);
         baseVMs.add(new HeaderTweetVM(item.user.screenName,item.user.name, ParseRelativeDate.getRelativeTimeAgo(item.createdAt),item.text));
-        if(item.isMediaEnable){
+        if(item.media != null&&item.media.url != null){
+            Log.d(TAG, "item.media: "+item.media.type);
             baseVMs.add(new PhotoMediaTweetVM(item.media));
+
+
         }
         BaseAdapter baseAdapter = new BaseAdapter(baseVMs);
         rvTweetRight.setNestedScrollingEnabled(false);
@@ -54,6 +59,8 @@ public class TweetHolder extends BaseViewHolder<TweetVM> {
             intent.putExtra("TWEET",item);
             v.getContext().startActivity(intent);
         });
+
+
     }
 
 }

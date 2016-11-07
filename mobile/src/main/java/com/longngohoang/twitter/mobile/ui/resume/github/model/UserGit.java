@@ -1,4 +1,4 @@
-package com.longngohoang.twitter.appcore.data.backend.github.model;
+package com.longngohoang.twitter.mobile.ui.resume.github.model;
 
 /**
  * Created by Long on 11/1/2016.

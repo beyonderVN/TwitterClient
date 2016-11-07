@@ -3,7 +3,7 @@ package com.longngohoang.twitter.mobile.di;
 import android.content.Context;
 
 import com.longngohoang.twitter.appcore.common.schedulers.SchedulerProvider;
-import com.longngohoang.twitter.appcore.data.backend.github.GithubService;
+import com.longngohoang.twitter.mobile.ui.resume.github.GithubService;
 import com.longngohoang.twitter.appcore.data.backend.twitter.TwitterService;
 import com.longngohoang.twitter.appcore.interactor.TweetRepository;
 import com.longngohoang.twitter.mobile.ui.browser.BrowserActivity;

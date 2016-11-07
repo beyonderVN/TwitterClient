@@ -4,7 +4,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import com.longngohoang.twitter.appcore.data.backend.github.model.GitRepo;
+import com.longngohoang.twitter.mobile.ui.resume.github.model.GitRepo;
 import com.longngohoang.twitter.mobile.R;
 import com.longngohoang.twitter.mobile.ui.resume.adapter.viewmodel.RepoVM;
 

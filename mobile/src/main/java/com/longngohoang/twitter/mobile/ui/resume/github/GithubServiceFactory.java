@@ -1,4 +1,4 @@
-package com.longngohoang.twitter.appcore.data.backend.github;
+package com.longngohoang.twitter.mobile.ui.resume.github;
 
 import android.util.Log;
 

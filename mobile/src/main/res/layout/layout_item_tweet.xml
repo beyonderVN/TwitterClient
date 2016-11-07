@@ -8,7 +8,9 @@
     android:layout_margin="0.5dp"
     android:orientation="vertical"
     app:cardBackgroundColor="@color/cardview_shadow_end_color"
-    app:cardElevation="0.5dp">
+    app:cardElevation="0.5dp"
+    android:descendantFocusability="blocksDescendants"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +41,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
-            android:nestedScrollingEnabled="false"></android.support.v7.widget.RecyclerView>
+            android:nestedScrollingEnabled="false"
+            />
     </LinearLayout>
 
     <View

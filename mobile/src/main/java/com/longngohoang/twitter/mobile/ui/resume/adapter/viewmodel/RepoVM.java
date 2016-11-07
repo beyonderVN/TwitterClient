@@ -1,6 +1,6 @@
 package com.longngohoang.twitter.mobile.ui.resume.adapter.viewmodel;
 
-import com.longngohoang.twitter.appcore.data.backend.github.model.GitRepo;
+import com.longngohoang.twitter.mobile.ui.resume.github.model.GitRepo;
 import com.longngohoang.twitter.mobile.ui.resume.adapter.vmfactory.ResumeHolderFactory;
 
 import java.io.Serializable;

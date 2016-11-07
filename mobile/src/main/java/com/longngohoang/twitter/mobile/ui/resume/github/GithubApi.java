@@ -1,8 +1,8 @@
-package com.longngohoang.twitter.appcore.data.backend.github;
+package com.longngohoang.twitter.mobile.ui.resume.github;
 
 import com.fernandocejas.frodo.annotation.RxLogObservable;
-import com.longngohoang.twitter.appcore.data.backend.github.model.GitRepo;
-import com.longngohoang.twitter.appcore.data.backend.github.model.UserGit;
+import com.longngohoang.twitter.mobile.ui.resume.github.model.GitRepo;
+import com.longngohoang.twitter.mobile.ui.resume.github.model.UserGit;
 
 import java.util.List;
 

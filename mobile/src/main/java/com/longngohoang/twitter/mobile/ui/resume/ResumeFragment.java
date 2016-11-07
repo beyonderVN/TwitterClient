@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.longngohoang.twitter.appcore.data.backend.github.model.GitRepo;
-import com.longngohoang.twitter.appcore.data.backend.github.model.UserGit;
+import com.longngohoang.twitter.mobile.ui.resume.github.model.GitRepo;
+import com.longngohoang.twitter.mobile.ui.resume.github.model.UserGit;
 import com.longngohoang.twitter.mobile.MainApplication;
 import com.longngohoang.twitter.mobile.R;
 import com.longngohoang.twitter.mobile.ui.resume.adapter.RepoAdapter;

@@ -1,4 +1,4 @@
-package com.longngohoang.twitter.appcore.data.backend.github.model;
+package com.longngohoang.twitter.mobile.ui.resume.github.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
