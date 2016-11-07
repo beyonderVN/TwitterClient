@@ -3,6 +3,7 @@ package com.longngohoang.twitter.mobile.di;
 import android.content.Context;
 
 import com.longngohoang.twitter.appcore.common.schedulers.SchedulerProvider;
+import com.longngohoang.twitter.mobile.ui.browser.newhomelinefragment.Newhomelinefragment;
 import com.longngohoang.twitter.mobile.ui.resume.github.GithubService;
 import com.longngohoang.twitter.appcore.data.backend.twitter.TwitterService;
 import com.longngohoang.twitter.appcore.interactor.TweetRepository;
@@ -28,4 +29,5 @@ public interface MainComponent {
 
     void inject(HomeLineFragment tweetFragment);
 
+    void inject(Newhomelinefragment Newhomelinefragment);
 }

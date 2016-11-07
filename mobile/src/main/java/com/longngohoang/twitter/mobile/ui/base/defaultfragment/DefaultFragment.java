@@ -1,4 +1,4 @@
-package com.longngohoang.twitter.mobile.ui.browser.homelinefragment;
+package com.longngohoang.twitter.mobile.ui.base.defaultfragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,18 +17,16 @@ import android.widget.Toast;
 import android.widget.ViewAnimator;
 
 import com.longngohoang.twitter.appcore.common.recyclerviewhelper.InfiniteScrollListener;
-import com.longngohoang.twitter.mobile.MainApplication;
 import com.longngohoang.twitter.mobile.R;
 import com.longngohoang.twitter.mobile.ui.base.BaseFragment;
-import com.longngohoang.twitter.mobile.ui.browser.homelinefragment.adapter.TweetAdapter;
 
 import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class HomeLineFragment extends BaseFragment<HomeLinePresentationModel, HomeLineView, HomeLinePresenter>
-        implements HomeLineView {
+public abstract class DefaultFragment extends BaseFragment<DefaultPresentationModel, DefaultView, DefaultPresenter>
+        implements DefaultView {
     private static final String TAG = "DefaultFragment";
     private static final int POSITION_CONTENT_VIEW = 0;
     private static final int POSITION_PROGRESS_VIEW = 1;
@@ -43,15 +41,7 @@ public class HomeLineFragment extends BaseFragment<HomeLinePresentationModel, Ho
     SwipeRefreshLayout swipeRefresh;
     @BindView(R.id.vaStateControl)
     ViewAnimator resultAnimator;
-    private TweetAdapter tweetAdapter;
-
-    public static HomeLineFragment newInstance() {
-        return new HomeLineFragment();
-    }
-
-    public HomeLineFragment() {
-
-    }
+    private DefaultAdapter defaultAdapter;
 
 
     @Override
@@ -160,15 +150,10 @@ public class HomeLineFragment extends BaseFragment<HomeLinePresentationModel, Ho
 
 
 
-    @Override
-    protected void performFieldInection() {
-        MainApplication.getMainComponent().inject(this);
-    }
-
     @NonNull
     @Override
-    protected HomeLinePresentationModel createPresentationModel() {
-        return new HomeLinePresentationModel();
+    protected DefaultPresentationModel createPresentationModel() {
+        return new DefaultPresentationModel();
     }
 
     @Override
@@ -196,11 +181,11 @@ public class HomeLineFragment extends BaseFragment<HomeLinePresentationModel, Ho
     @Override
     public void updateView() {
 
-        if (tweetAdapter == null) {
-            tweetAdapter = new TweetAdapter(getContext(), presenter.getPresentationModel());
-            listRV.setAdapter(tweetAdapter);
+        if (defaultAdapter == null) {
+            defaultAdapter = new DefaultAdapter(getContext(), presenter.getPresentationModel());
+            listRV.setAdapter(defaultAdapter);
         } else {
-            tweetAdapter.notifyDataSetChanged();
+            defaultAdapter.notifyDataSetChanged();
         }
 
         listRV.setLayoutFrozen(false);

@@ -1,4 +1,4 @@
-package com.longngohoang.twitter.mobile.ui.browser.homelinefragment.adapter;
+package com.longngohoang.twitter.mobile.ui.base.defaultfragment;
 
 
 import android.content.Context;
@@ -6,9 +6,9 @@ import android.content.Context;
 import com.longngohoang.twitter.appcore.presentation.BasePresentationModel;
 import com.longngohoang.twitter.mobile.ui.adapter.BaseAdapter;
 
-public class TweetAdapter extends BaseAdapter {
+public class DefaultAdapter extends BaseAdapter {
 
-    public TweetAdapter(Context context, BasePresentationModel basePresentationModel) {
+    public DefaultAdapter(Context context, BasePresentationModel basePresentationModel) {
         super(context, basePresentationModel);
     }
 }

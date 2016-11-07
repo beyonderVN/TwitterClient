@@ -1,4 +1,4 @@
-package com.longngohoang.twitter.mobile.ui.browser.homelinefragment;
+package com.longngohoang.twitter.mobile.ui.base.defaultfragment;
 
 
 import android.content.Context;
@@ -25,19 +25,19 @@ import javax.inject.Named;
  * Created by Long on 7/8/2016.
  */
 
-public class HomeLinePresenter extends SimpleMVPPresenter<HomeLineView, HomeLinePresentationModel> implements HomeLineView {
+public class DefaultPresenter extends SimpleMVPPresenter<DefaultView, DefaultPresentationModel> implements DefaultView {
 
     private static final String TAG = "DefaultPresenter";
 
     private final UseCase getHomeTimeLine;
 
     @Inject
-    HomeLinePresenter(@Named("getHomeTimeLine")UseCase getHomeTimeLine) {
+    DefaultPresenter(@Named("getHomeTimeLine")UseCase getHomeTimeLine) {
         this.getHomeTimeLine = getHomeTimeLine;
     }
 
     @Override
-    public void attachView(HomeLineView mvpView, HomeLinePresentationModel presentationModel) {
+    public void attachView(DefaultView mvpView, DefaultPresentationModel presentationModel) {
         super.attachView(mvpView, presentationModel);
 
     }
@@ -62,7 +62,7 @@ public class HomeLinePresenter extends SimpleMVPPresenter<HomeLineView, HomeLine
         }
         showProcess();
         getPresentationModel().refresh(column);
-        getHomeTimeLine.execute(new HomeLinePresenter.getFirstHomeTimeline(),getPresentationModel().maxId);
+        getHomeTimeLine.execute(new DefaultPresenter.getFirstHomeTimeline(),getPresentationModel().maxId);
     }
     public void fetchMore(){
         if(isThereInternetConnection()) {
@@ -71,7 +71,7 @@ public class HomeLinePresenter extends SimpleMVPPresenter<HomeLineView, HomeLine
             showError(ErrorMessageFactory.create(MainApplication.getMainComponent().context(),new NetworkConnectionException()));
         }
         startLoadingMore();
-        getHomeTimeLine.execute(new HomeLinePresenter.getMoreHomeTimeline(),getPresentationModel().maxId);
+        getHomeTimeLine.execute(new DefaultPresenter.getMoreHomeTimeline(),getPresentationModel().maxId);
     }
 
 

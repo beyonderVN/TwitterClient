@@ -28,6 +28,7 @@ import com.longngohoang.twitter.mobile.R;
 import com.longngohoang.twitter.mobile.ui.LoginActivity;
 import com.longngohoang.twitter.mobile.ui.base.BaseActivity;
 import com.longngohoang.twitter.mobile.ui.browser.homelinefragment.HomeLineFragment;
+import com.longngohoang.twitter.mobile.ui.browser.newhomelinefragment.Newhomelinefragment;
 import com.twitter.sdk.android.Twitter;
 
 import java.util.ArrayList;
@@ -119,7 +120,7 @@ public class BrowserActivity extends BaseActivity<BrowserPresentationModel, Brow
 
         HomeLineFragment tweetFragment = HomeLineFragment.newInstance();
         mAdapter.addFragment(tweetFragment, "Tweet");
-        mAdapter.addFragment(HomeLineFragment.newInstance(), "phuong tien");
+        mAdapter.addFragment(Newhomelinefragment.newInstance(), "phuong tien");
         mAdapter.addFragment(HomeLineFragment.newInstance(), "luot thich");
         mViewpager.setAdapter(mAdapter);
         mTabs.setupWithViewPager(mViewpager);
